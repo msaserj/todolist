@@ -21,8 +21,11 @@ export const Todolist = (props: PropsType) => {
     // Хук для названия тасок
     let [title, setTitle] = useState("")
     const addTask = () => {
-        props.addTask(title)
-        setTitle("")
+        if(title.trim() !== '') {
+            props.addTask(title)
+            setTitle("")
+        }
+
     }
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
