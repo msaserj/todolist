@@ -41,7 +41,6 @@ export const Todolist = (props: PropsType) => {
             addTask()
         }
     }
-
     const onAllClickHandler = () => {
         props.changeFilter("all")
     }
