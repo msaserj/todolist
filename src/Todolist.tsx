@@ -26,7 +26,14 @@ export const Todolist = (props: PropsType) => {
         <div>
             <h3>{props.title}</h3>
             <div>
-                <input onChange={(event => setTitle(event.currentTarget.value))} value={title}/>
+                <input
+                    onChange={(event) => setTitle(event.currentTarget.value)}
+                    onKeyPress={(event) => {
+                    if (event.key === "Enter") {
+                        addTask()
+                    }
+                    }}
+                    value={title}/>
                 <button onClick={addTask}>+</button>
             </div>
             <ul>
