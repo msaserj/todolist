@@ -1,6 +1,10 @@
 import React from "react";
 
-export const Todolist = (props: any) => {
+type PropsType = {
+    title: string
+}
+
+export const Todolist = (props: PropsType) => {
     return (
         <div>
             <h3>{props.title}</h3>
