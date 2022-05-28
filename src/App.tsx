@@ -34,11 +34,18 @@ function App() {
     }
 
     //добавляем новые таски (объекты тасок)
-
     const addTask = (title: string) => {
       let task = {id: v1(), title: title, isDone: false}
         let newTasks = [task, ...tasks]
         setTasks(newTasks)
+    }
+
+    const changeTaskStatus = (id: string, isDone: boolean) => {
+      let task = tasks.find(t => t.id === id)
+        if (task) {
+            task.isDone = isDone
+            setTasks([...tasks])
+        }
     }
 
     return (
@@ -48,7 +55,10 @@ function App() {
                 tasks={tasksForTodoList}
                 removeTask={removeTask}
                 changeFilter={changeFilter}
-                addTask={addTask}/>
+                addTask={addTask}
+                changeTaskStatus={changeTaskStatus}
+            />
+
         </div>
     );
 }
