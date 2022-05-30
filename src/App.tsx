@@ -82,6 +82,16 @@ function App() {
             setTasks({...tasks})
         }
     }
+    const removeTodolist = (id: string) => {
+        // добавим в стейт список тудулистов, ид которых не равны удаляемым.
+        setTodolists(todolists.filter(tdl => tdl.id !== id))
+        // удалим таски для этого тудулиста из второго стейта где хранятся таски
+        delete tasks[id]
+        // сетаем в стейт копию объекта и отрисовываем
+        setTasks({...tasks})
+    }
+
+
 
     return (
         <div className="App">
@@ -104,7 +114,9 @@ function App() {
                         addTask={addTask}
                         changeTaskStatus={changeTaskStatus}
                         filter={tdl.filter}
-                        todolistID={tdl.id}/>
+                        todolistID={tdl.id}
+                        removeTodolist={removeTodolist}
+                    />
                 )
             })}
 
