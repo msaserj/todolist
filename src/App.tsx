@@ -14,22 +14,47 @@ function App() {
     // стейт значений отфильтрованных тасок
     // let [filter, setFilter] = useState<FilterValueType>('all')
     // стейт с названиями таск-листов
-    let [todolists, setTodolists] = useState<Array<TodolistsType>>([
-            {id: v1(), title: 'What to learn', filter: 'all'},
-            {id: v1(), title: 'What to buy', filter: 'all'},
-        ])
+    // let [todolists, setTodolists] = useState<Array<TodolistsType>>([
+    //         {id: v1(), title: 'What to learn', filter: 'all'},
+    //         {id: v1(), title: 'What to buy', filter: 'all'},
+    //     ])
     // стейт с тасками
-    let [tasks, setTasks] = useState([
-        {id: v1(), title: "HTML&CSS", isDone: true},
-        {id: v1(), title: "JS", isDone: true},
-        {id: v1(), title: "ReactJS", isDone: false},
-        {id: v1(), title: "Rest API", isDone: false},
-        {id: v1(), title: "GraphQL", isDone: false}
+    // let [tasks, setTasks] = useState([
+    //     {id: v1(), title: "HTML&CSS", isDone: true},
+    //     {id: v1(), title: "JS", isDone: true},
+    //     {id: v1(), title: "ReactJS", isDone: false},
+    //     {id: v1(), title: "Rest API", isDone: false},
+    //     {id: v1(), title: "GraphQL", isDone: false}
+    // ])
+
+    let todolistID1 = v1()
+    let todolistID2 = v1()
+
+    let [todolists, setTodolists] = useState<Array<TodolistsType>>([
+        {id: todolistID1, title: 'What to learn', filter: 'all'},
+        {id: todolistID2, title: 'What to buy', filter: 'all'},
     ])
+
+    let [tasks, setTasks] = useState({
+        [todolistID1]: [
+            {id: v1(), title: 'HTML&CSS', isDone: true},
+            {id: v1(), title: 'JS', isDone: true},
+            {id: v1(), title: 'ReactJS', isDone: false},
+
+        ],
+        [todolistID2]: [
+            {id: v1(), title: 'Rest API', isDone: true},
+            {id: v1(), title: 'GraphQL', isDone: false},
+        ]
+    })
+
+
+
     // удаление тасок. Фильтром пробегаемся, получаем новый массив тасок без одной и сетаем его
-    const removeTask = (id: string) => {
-        tasks = tasks.filter(task => task.id !== id)
-        setTasks(tasks)
+    const removeTask = (id: string, todolistID: string) => {
+        let todolistTasks = tasks[todolistID]
+        tasks[todolistID] = todolistTasks.filter(task => task.id !== id)
+        setTasks({...tasks})
     }
 
     // меняем стейт значений отфильтрованных тасок
@@ -42,29 +67,31 @@ function App() {
     }
 
     //добавляем новые таски (объекты тасок)
-    const addTask = (title: string) => {
+    const addTask = (title: string, todolistID: string) => {
       let task = {id: v1(), title: title, isDone: false}
-        let newTasks = [task, ...tasks]
-        setTasks(newTasks)
+        let todolistTasks = tasks[todolistID]
+        tasks[todolistID] = [task, ...todolistTasks]
+        setTasks({...tasks})
     }
 
-    const changeTaskStatus = (id: string, isDone: boolean) => {
-      let task = tasks.find(t => t.id === id)
+    const changeTaskStatus = (id: string, isDone: boolean, todolistID: string) => {
+        let todolistTasks = tasks[todolistID]
+      let task = todolistTasks.find(t => t.id === id)
         if (task) {
             task.isDone = isDone
-            setTasks([...tasks])
+            setTasks({...tasks})
         }
     }
 
     return (
         <div className="App">
             {todolists.map(tdl => {
-                // фильтруем таски all completed active
-                let tasksForTodoList = tasks // храним отфильтрованные таски. по умолчанию all
+                let allTodolistTasks = tasks[tdl.id]
+                let tasksForTodoList = allTodolistTasks // храним отфильтрованные таски. по умолчанию all
                 if (tdl.filter === "active") {
-                    tasksForTodoList = tasks.filter(task => !task.isDone)
+                    tasksForTodoList = allTodolistTasks.filter(task => !task.isDone)
                 } else if (tdl.filter === "completed") {
-                    tasksForTodoList = tasks.filter(task => task.isDone)
+                    tasksForTodoList = allTodolistTasks.filter(task => task.isDone)
                 }
                 return(
                     <Todolist
