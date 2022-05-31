@@ -85,12 +85,12 @@ export const Todolist = (props: PropsType) => {
                 })}
             </ul>
             <div>
-                <Button size="small" variant={props.filter === "all" ? "outlined" : "text"} onClick={onAllClickHandler}>All
+                <Button size="large" variant={props.filter === "all" ? "outlined" : "text"} onClick={onAllClickHandler}>All
                 </Button>
-                <Button color={"primary"} size="small" variant={props.filter === "active" ? "outlined" : "text"}
+                <Button color={"warning"} size="large" variant={props.filter === "active" ? "outlined" : "text"}
                         onClick={onActiveClickHandler}>Active
                 </Button>
-                <Button color={"secondary"} size="small" variant={props.filter === "completed" ? "outlined" : "text"}
+                <Button color={"success"} size="large" variant={props.filter === "completed" ? "outlined" : "text"}
                         onClick={onCompletedClickHandler}>Completed
                 </Button>
             </div>
