@@ -49,18 +49,14 @@ export const Todolist = (props: PropsType) => {
         <div>
 
             {/*<button onClick={removeTodolistHandler}>✖</button>*/}
-            <div className="todolistName">
-                <h3><EditableSpan title={props.title} onChange={changeTodolistTitle}/></h3>
+
+                <EditableSpan title={props.title} onChange={changeTodolistTitle}/>
                 <IconButton onClick={removeTodolistHandler}>
                     <DeleteIcon />
                 </IconButton>
-            </div>
-
-
-            <div>
                 {/*universal component*/}
                 <AddItemForm addItem={addTask}/>
-            </div>
+
             <ul>
                 {props.tasks.map((task) => {
                     const onClickHandler = () => {

@@ -1,37 +1,34 @@
-.App {
-  padding: 30px;
-  display: flex;
-}
+/*.App {*/
+/*  padding: 30px;*/
+/*  display: flex;*/
+/*}*/
 
-.App > div {
-  margin-right: 50px;
-}
+/*.App > div {*/
+/*  margin-right: 50px;*/
+/*}*/
 
-li {
-  display: flex;
-  margin: 5px;
-}
+/*li {*/
+/*  display: flex;*/
+/*  margin: 5px;*/
+/*}*/
 
-.todolistName {
-  display: flex;
-}
+/*.todolistName {*/
+/*  display: flex;*/
+/*}*/
 
+/*.error {*/
+/*  border: red 1px solid;*/
+/*}*/
 
+/*.error-message {*/
+/*  color: red;*/
+/*}*/
 
+/*.active-filter {*/
+/*  background-color: aquamarine;*/
+/*}*/
 
-.error {
-  border: red 1px solid;
-}
+/*.is-done {*/
+/*  opacity: 0.5;*/
 
-.error-message {
-  color: red;
-}
-
-.active-filter {
-  background-color: aquamarine;
-}
-
-.is-done {
-  opacity: 0.5;
-
-}
+/*}*/

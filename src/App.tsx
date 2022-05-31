@@ -3,6 +3,9 @@ import './App.css';
 import {TaskType, Todolist} from "./components/Todolist";
 import {v1} from "uuid";
 import {AddItemForm} from "./components/AddItemForm";
+import {AppBar, Button, Container, Grid, IconButton, Paper, Typography} from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
+import Toolbar from '@mui/material/Toolbar';
 
 export type FilterValueType = "all" | "active" | "completed"
 type TodolistsType = {
@@ -43,7 +46,6 @@ function App() {
         tasks[todolistID] = todolistTasks.filter(task => task.id !== id)
         setTasks({...tasks})
     }
-
     // меняем стейт значений отфильтрованных тасок
     const changeFilter = (todolistID: string, value: FilterValueType) => {
         let todolist = todolists.find(tdl => tdl.id === todolistID)
@@ -52,7 +54,6 @@ function App() {
             setTodolists([...todolists])
         }
     }
-
     //добавляем новые таски (объекты тасок)
     const addTask = (title: string, todolistID: string) => {
         let task = {id: v1(), title: title, isDone: false}
@@ -60,7 +61,6 @@ function App() {
         tasks[todolistID] = [task, ...todolistTasks]
         setTasks({...tasks})
     }
-
     const changeTaskStatus = (id: string, isDone: boolean, todolistID: string) => {
         let todolistTasks = tasks[todolistID]
         let task = todolistTasks.find(t => t.id === id)
@@ -84,14 +84,12 @@ function App() {
             setTodolists([...todolists])
         }
     }
-
     const addTodoList = (title: string) => {
         let newTodolistId = v1()
         let newTodolist: TodolistsType = {id: newTodolistId, title: title, filter: 'all'}
         setTodolists([newTodolist, ...todolists])
         setTasks({...tasks, [newTodolistId]: []})
     }
-
     const removeTodolist = (id: string) => {
         // добавим в стейт список тудулистов, ид которых не равны удаляемым.
         setTodolists(todolists.filter(tdl => tdl.id !== id))
@@ -101,39 +99,64 @@ function App() {
         setTasks({...tasks})
     }
 
-
-
     return (
         <div className="App">
-            {/*universal component*/}
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        sx={{mr: 2}}
+                    >
+                        <MenuIcon/>
+                    </IconButton>
+                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                        News
+                    </Typography>
+                    <Button color="inherit">Login</Button>
+                </Toolbar>
+            </AppBar>
 
-            <AddItemForm addItem={addTodoList}/>
+            <Container fixed>
+                {/*universal component*/}
+                <Grid style={{padding: "20px"}} container>
+                    <AddItemForm addItem={addTodoList}/>
+                </Grid>
+                <Grid container spacing={3}>
+                    {todolists.map(tdl => {
+                        let allTodolistTasks = tasks[tdl.id]
+                        let tasksForTodoList = allTodolistTasks // храним отфильтрованные таски. по умолчанию all
+                        if (tdl.filter === "active") {
+                            tasksForTodoList = allTodolistTasks.filter(task => !task.isDone)
+                        } else if (tdl.filter === "completed") {
+                            tasksForTodoList = allTodolistTasks.filter(task => task.isDone)
+                        }
+                        return (
+                            <Grid item xs={12} md={6} xl={4}>
+                                <Paper style={{padding: "10px"}} elevation={3}>
+                                    <Todolist
+                                        key={tdl.id}
+                                        id={tdl.id}
+                                        title={tdl.title}
+                                        tasks={tasksForTodoList}
+                                        removeTask={removeTask}
+                                        changeFilter={changeFilter}
+                                        addTask={addTask}
+                                        changeTaskStatus={changeTaskStatus}
+                                        filter={tdl.filter}
+                                        todolistID={tdl.id}
+                                        removeTodolist={removeTodolist}
+                                        changeTaskTitle={changeTaskTitle}
+                                        changeTodolistTitle={changeTodolistTitle}/>
+                                </Paper>
 
-            {todolists.map(tdl => {
-                let allTodolistTasks = tasks[tdl.id]
-                let tasksForTodoList = allTodolistTasks // храним отфильтрованные таски. по умолчанию all
-                if (tdl.filter === "active") {
-                    tasksForTodoList = allTodolistTasks.filter(task => !task.isDone)
-                } else if (tdl.filter === "completed") {
-                    tasksForTodoList = allTodolistTasks.filter(task => task.isDone)
-                }
-                return (
-                    <Todolist
-                        key={tdl.id}
-                        id={tdl.id}
-                        title={tdl.title}
-                        tasks={tasksForTodoList}
-                        removeTask={removeTask}
-                        changeFilter={changeFilter}
-                        addTask={addTask}
-                        changeTaskStatus={changeTaskStatus}
-                        filter={tdl.filter}
-                        todolistID={tdl.id}
-                        removeTodolist={removeTodolist}
-                        changeTaskTitle={changeTaskTitle}
-                        changeTodolistTitle={changeTodolistTitle}/>
-                )
-            })}
+                            </Grid>
+                        )
+                    })}
+                </Grid>
+            </Container>
 
 
         </div>

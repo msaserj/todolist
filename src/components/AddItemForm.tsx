@@ -1,4 +1,4 @@
-import {IconButton, TextField} from '@mui/material';
+import {Grid, IconButton, TextField} from '@mui/material';
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -30,7 +30,8 @@ export const AddItemForm = (props: AddItemFormType) => {
         }
     }
     return (
-        <div>
+
+        <Grid xs={12}>
             <TextField
                 onChange={onChangeHandler}
                 onKeyPress={onKeyPressHandler}
@@ -41,13 +42,14 @@ export const AddItemForm = (props: AddItemFormType) => {
                 error={!!error}
                 helperText={error}
                 value={title}
+
             />
             <IconButton color={"primary"} size="medium"  onClick={addItem}>
                 <AddCircleOutlineIcon/>
             </IconButton>
             {/*<button onClick={addItem}>+</button>*/}
             {/*{error && <div className="error-message">{error}</div>}*/}
-        </div>
+        </Grid>
     );
 };
 
