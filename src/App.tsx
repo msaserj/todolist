@@ -55,7 +55,7 @@ function App() {
 
     //добавляем новые таски (объекты тасок)
     const addTask = (title: string, todolistID: string) => {
-      let task = {id: v1(), title: title, isDone: false}
+        let task = {id: v1(), title: title, isDone: false}
         let todolistTasks = tasks[todolistID]
         tasks[todolistID] = [task, ...todolistTasks]
         setTasks({...tasks})
@@ -63,18 +63,33 @@ function App() {
 
     const changeTaskStatus = (id: string, isDone: boolean, todolistID: string) => {
         let todolistTasks = tasks[todolistID]
-      let task = todolistTasks.find(t => t.id === id)
+        let task = todolistTasks.find(t => t.id === id)
         if (task) {
             task.isDone = isDone
             setTasks({...tasks})
         }
     }
+    const changeTaskTitle = (id: string, newTitle: string, todolistID: string) => {
+        let todolistTasks = tasks[todolistID]
+        let task = todolistTasks.find(t => t.id === id)
+        if (task) {
+            task.title = newTitle
+            setTasks({...tasks})
+        }
+    }
+    const changeTodolistTitle = (id: string, newTitle: string) => {
+        let todolist = todolists.find(tdl => tdl.id === id)
+        if (todolist) {
+            todolist.title = newTitle
+            setTodolists([...todolists])
+        }
+    }
 
     const addTodoList = (title: string) => {
-      let newTodolistId = v1()
+        let newTodolistId = v1()
         let newTodolist: TodolistsType = {id: newTodolistId, title: title, filter: 'all'}
         setTodolists([newTodolist, ...todolists])
-        setTasks({...tasks, [newTodolistId]:[]})
+        setTasks({...tasks, [newTodolistId]: []})
     }
 
     const removeTodolist = (id: string) => {
@@ -102,7 +117,7 @@ function App() {
                 } else if (tdl.filter === "completed") {
                     tasksForTodoList = allTodolistTasks.filter(task => task.isDone)
                 }
-                return(
+                return (
                     <Todolist
                         key={tdl.id}
                         id={tdl.id}
@@ -115,7 +130,8 @@ function App() {
                         filter={tdl.filter}
                         todolistID={tdl.id}
                         removeTodolist={removeTodolist}
-                    />
+                        changeTaskTitle={changeTaskTitle}
+                        changeTodolistTitle={changeTodolistTitle}/>
                 )
             })}
 
