@@ -1,7 +1,8 @@
 {
-  "name": "it-incubator-todolist-ts",
+  "name": "it-incubator-todolist",
   "version": "0.1.0",
   "private": true,
+  "homepage":"https://msaserj.github.io/it-incubator-todolist",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
