@@ -63,8 +63,6 @@ export const Todolist = (props: PropsType) => {
                     const onChangeTitleHandler = (newTitle: string) => {
                         props.changeTaskTitle(task.id, newTitle, props.todolistID)
                     }
-
-
                     return (
                         <li className={task.isDone ? "is-done" : ""} key={task.id}>
                             <input type="checkbox" onChange={onChangeStatusHandler} checked={task.isDone}/>
