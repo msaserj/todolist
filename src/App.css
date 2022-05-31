@@ -12,6 +12,12 @@ li {
   margin: 5px;
 }
 
+.todolistName {
+  display: flex;
+}
+
+
+
 
 .error {
   border: red 1px solid;
@@ -27,4 +33,5 @@ li {
 
 .is-done {
   opacity: 0.5;
+
 }

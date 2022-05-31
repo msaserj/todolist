@@ -1,8 +1,12 @@
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 import React, {ChangeEvent} from 'react';
 
 import {FilterValueType} from "../App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
+import { Button } from '@mui/material';
 
 export type TaskType = {
     id: string
@@ -44,8 +48,14 @@ export const Todolist = (props: PropsType) => {
     return (
         <div>
 
-            <button onClick={removeTodolistHandler}>✖</button>
-            <h3><EditableSpan title={props.title} onChange={changeTodolistTitle}/></h3>
+            {/*<button onClick={removeTodolistHandler}>✖</button>*/}
+            <div className="todolistName">
+                <h3><EditableSpan title={props.title} onChange={changeTodolistTitle}/></h3>
+                <IconButton onClick={removeTodolistHandler}>
+                    <DeleteIcon />
+                </IconButton>
+            </div>
+
 
             <div>
                 {/*universal component*/}
@@ -65,23 +75,28 @@ export const Todolist = (props: PropsType) => {
                     }
                     return (
                         <li className={task.isDone ? "is-done" : ""} key={task.id}>
-                            <input type="checkbox" onChange={onChangeStatusHandler} checked={task.isDone}/>
-                            <EditableSpan title={task.title} onChange={onChangeTitleHandler}/>
-                            {/*<span>{task.title}</span>*/}
-                            <button onClick={onClickHandler}>✖</button>
+                            <div className="tasks">
+                                <input type="checkbox" onChange={onChangeStatusHandler} checked={task.isDone}/>
+                                <EditableSpan title={task.title} onChange={onChangeTitleHandler}/>
+                                {/*<span>{task.title}</span>*/}
+                                <IconButton onClick={onClickHandler}>
+                                    <DeleteIcon />
+                                </IconButton>
+                                {/*<button onClick={onClickHandler}>✖</button>*/}
+                            </div>
                         </li>
                     )
                 })}
             </ul>
             <div>
-                <button className={props.filter === "all" ? "active-filter" : ""} onClick={onAllClickHandler}>All
-                </button>
-                <button className={props.filter === "active" ? "active-filter" : ""}
+                <Button size="small" variant={props.filter === "all" ? "outlined" : "text"} onClick={onAllClickHandler}>All
+                </Button>
+                <Button color={"primary"} size="small" variant={props.filter === "active" ? "outlined" : "text"}
                         onClick={onActiveClickHandler}>Active
-                </button>
-                <button className={props.filter === "completed" ? "active-filter" : ""}
+                </Button>
+                <Button color={"secondary"} size="small" variant={props.filter === "completed" ? "outlined" : "text"}
                         onClick={onCompletedClickHandler}>Completed
-                </button>
+                </Button>
             </div>
         </div>
     )
