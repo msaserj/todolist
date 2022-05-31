@@ -1,6 +1,7 @@
-import {Button, TextField} from '@mui/material';
+import {IconButton, TextField} from '@mui/material';
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 
 type AddItemFormType = {
@@ -20,27 +21,30 @@ export const AddItemForm = (props: AddItemFormType) => {
         }
     }
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-      setTitle(e.currentTarget.value)
+        setTitle(e.currentTarget.value)
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-      setError(null)
+        setError(null)
         if (e.key === "Enter") {
             addItem()
         }
     }
     return (
         <div>
-            <TextField type="text"
-                   onChange={onChangeHandler}
-                   onKeyPress={onKeyPressHandler}
-                   className={error ? "error" : ""}
-                       variant={"outlined"}
-                       size={"small"}
-                       label={"Type task"}
-                       error={!!error}
-                       helperText={error}
+            <TextField
+                onChange={onChangeHandler}
+                onKeyPress={onKeyPressHandler}
+                className={error ? "error" : ""}
+                variant={"outlined"}
+                size={"small"}
+                label={"Type task"}
+                error={!!error}
+                helperText={error}
+                value={title}
             />
-            <Button size="small" variant="contained" onClick={addItem}>+</Button>
+            <IconButton color={"primary"} size="medium"  onClick={addItem}>
+                <AddCircleOutlineIcon/>
+            </IconButton>
             {/*<button onClick={addItem}>+</button>*/}
             {/*{error && <div className="error-message">{error}</div>}*/}
         </div>
