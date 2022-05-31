@@ -30,7 +30,6 @@ export const AddItemForm = (props: AddItemFormType) => {
         }
     }
     return (
-
         <Grid xs={12}>
             <TextField
                 onChange={onChangeHandler}
@@ -41,10 +40,8 @@ export const AddItemForm = (props: AddItemFormType) => {
                 label={"Type task"}
                 error={!!error}
                 helperText={error}
-                value={title}
-
-            />
-            <IconButton color={"primary"} size="medium"  onClick={addItem}>
+                value={title}/>
+            <IconButton color={"primary"} size="medium" onClick={addItem}>
                 <AddCircleOutlineIcon/>
             </IconButton>
             {/*<button onClick={addItem}>+</button>*/}

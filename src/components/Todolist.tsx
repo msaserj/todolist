@@ -1,12 +1,10 @@
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-
 import React, {ChangeEvent} from 'react';
-
 import {FilterValueType} from "../App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button, Checkbox} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export type TaskType = {
     id: string
@@ -28,7 +26,6 @@ type PropsType = {
     changeTodolistTitle: (id: string, newTitle: string) => void
 }
 
-
 export const Todolist = (props: PropsType) => {
     // всё переехало в отдельную универсальную компоненту
     const addTask = (title: string) => {
@@ -40,23 +37,19 @@ export const Todolist = (props: PropsType) => {
     const changeTodolistTitle = (newTitle: string,) => {
         props.changeTodolistTitle(props.id, newTitle)
     }
-
     const onAllClickHandler = () => props.changeFilter(props.todolistID, "all");
     const onActiveClickHandler = () => props.changeFilter(props.todolistID, "active");
     const onCompletedClickHandler = () => props.changeFilter(props.todolistID, "completed");
 
     return (
         <div>
-
             {/*<button onClick={removeTodolistHandler}>✖</button>*/}
-
-                <EditableSpan title={props.title} onChange={changeTodolistTitle}/>
-                <IconButton onClick={removeTodolistHandler}>
-                    <DeleteIcon />
-                </IconButton>
-                {/*universal component*/}
-                <AddItemForm addItem={addTask}/>
-
+            <EditableSpan title={props.title} onChange={changeTodolistTitle}/>
+            <IconButton onClick={removeTodolistHandler}>
+                <DeleteIcon/>
+            </IconButton>
+            {/*universal component*/}
+            <AddItemForm addItem={addTask}/>
             <ul>
                 {props.tasks.map((task) => {
                     const onClickHandler = () => {
@@ -76,7 +69,7 @@ export const Todolist = (props: PropsType) => {
                                 <EditableSpan title={task.title} onChange={onChangeTitleHandler}/>
                                 {/*<span>{task.title}</span>*/}
                                 <IconButton onClick={onClickHandler}>
-                                    <DeleteIcon />
+                                    <DeleteIcon/>
                                 </IconButton>
                                 {/*<button onClick={onClickHandler}>✖</button>*/}
                             </div>

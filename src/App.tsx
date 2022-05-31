@@ -23,11 +23,6 @@ function App() {
     let todolistID1 = v1()
     let todolistID2 = v1()
 
-    let [todolists, setTodolists] = useState<Array<TodolistsType>>([
-        {id: todolistID1, title: 'What to learn', filter: 'all'},
-        {id: todolistID2, title: 'What to buy', filter: 'all'},
-    ])
-
     let [tasks, setTasks] = useState<TasksStateType>({
         [todolistID1]: [
             {id: v1(), title: 'HTML&CSS', isDone: true},
@@ -40,21 +35,11 @@ function App() {
         ]
     })
 
-    // удаление тасок. Фильтром пробегаемся, получаем новый массив тасок без одной и сетаем его
     const removeTask = (id: string, todolistID: string) => {
         let todolistTasks = tasks[todolistID]
         tasks[todolistID] = todolistTasks.filter(task => task.id !== id)
         setTasks({...tasks})
     }
-    // меняем стейт значений отфильтрованных тасок
-    const changeFilter = (todolistID: string, value: FilterValueType) => {
-        let todolist = todolists.find(tdl => tdl.id === todolistID)
-        if (todolist) {
-            todolist.filter = value
-            setTodolists([...todolists])
-        }
-    }
-    //добавляем новые таски (объекты тасок)
     const addTask = (title: string, todolistID: string) => {
         let task = {id: v1(), title: title, isDone: false}
         let todolistTasks = tasks[todolistID]
@@ -77,6 +62,26 @@ function App() {
             setTasks({...tasks})
         }
     }
+
+    let [todolists, setTodolists] = useState<Array<TodolistsType>>([
+        {id: todolistID1, title: 'What to learn', filter: 'all'},
+        {id: todolistID2, title: 'What to buy', filter: 'all'},
+    ])
+    const changeFilter = (todolistID: string, value: FilterValueType) => {
+        let todolist = todolists.find(tdl => tdl.id === todolistID)
+        if (todolist) {
+            todolist.filter = value
+            setTodolists([...todolists])
+        }
+    }
+    const removeTodolist = (id: string) => {
+        // добавим в стейт список тудулистов, ид которых не равны удаляемым.
+        setTodolists(todolists.filter(tdl => tdl.id !== id))
+        // удалим таски для этого тудулиста из второго стейта где хранятся таски
+        delete tasks[id]
+        // сетаем в стейт копию объекта и отрисовываем
+        setTasks({...tasks})
+    }
     const changeTodolistTitle = (id: string, newTitle: string) => {
         let todolist = todolists.find(tdl => tdl.id === id)
         if (todolist) {
@@ -90,14 +95,7 @@ function App() {
         setTodolists([newTodolist, ...todolists])
         setTasks({...tasks, [newTodolistId]: []})
     }
-    const removeTodolist = (id: string) => {
-        // добавим в стейт список тудулистов, ид которых не равны удаляемым.
-        setTodolists(todolists.filter(tdl => tdl.id !== id))
-        // удалим таски для этого тудулиста из второго стейта где хранятся таски
-        delete tasks[id]
-        // сетаем в стейт копию объекта и отрисовываем
-        setTasks({...tasks})
-    }
+
 
     return (
         <div className="App">
@@ -108,8 +106,7 @@ function App() {
                         edge="start"
                         color="inherit"
                         aria-label="menu"
-                        sx={{mr: 2}}
-                    >
+                        sx={{mr: 2}}>
                         <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
@@ -118,7 +115,6 @@ function App() {
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
-
             <Container fixed>
                 {/*universal component*/}
                 <Grid style={{padding: "20px"}} container>
@@ -151,14 +147,11 @@ function App() {
                                         changeTaskTitle={changeTaskTitle}
                                         changeTodolistTitle={changeTodolistTitle}/>
                                 </Paper>
-
                             </Grid>
                         )
                     })}
                 </Grid>
             </Container>
-
-
         </div>
     );
 }
