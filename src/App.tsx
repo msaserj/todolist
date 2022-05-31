@@ -8,7 +8,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 
 export type FilterValueType = "all" | "active" | "completed"
-type TodolistsType = {
+
+export type TodolistsType = {
     id: string
     title: string
     filter: FilterValueType
