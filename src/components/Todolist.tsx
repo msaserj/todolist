@@ -42,6 +42,7 @@ export const Todolist = (props: PropsType) => {
             <h3>{props.title}</h3>
 
             <div>
+                {/*universal component*/}
                 <AddItemForm addItem={addTask}/>
             </div>
             <ul>

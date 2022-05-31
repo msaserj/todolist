@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {TaskType, Todolist} from "./components/Todolist";
 import {v1} from "uuid";
+import {AddItemForm} from "./components/AddItemForm";
 
 export type FilterValueType = "all" | "active" | "completed"
 type TodolistsType = {
@@ -68,6 +69,14 @@ function App() {
             setTasks({...tasks})
         }
     }
+
+    const addTodoList = (title: string) => {
+      let newTodolistId = v1()
+        let newTodolist: TodolistsType = {id: newTodolistId, title: title, filter: 'all'}
+        setTodolists([newTodolist, ...todolists])
+        setTasks({...tasks, [newTodolistId]:[]})
+    }
+
     const removeTodolist = (id: string) => {
         // добавим в стейт список тудулистов, ид которых не равны удаляемым.
         setTodolists(todolists.filter(tdl => tdl.id !== id))
@@ -81,6 +90,10 @@ function App() {
 
     return (
         <div className="App">
+            {/*universal component*/}
+
+            <AddItemForm addItem={addTodoList}/>
+
             {todolists.map(tdl => {
                 let allTodolistTasks = tasks[tdl.id]
                 let tasksForTodoList = allTodolistTasks // храним отфильтрованные таски. по умолчанию all
