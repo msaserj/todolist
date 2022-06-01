@@ -3,7 +3,6 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
-
 type AddItemFormType = {
     addItem: (title: string) => void
 }

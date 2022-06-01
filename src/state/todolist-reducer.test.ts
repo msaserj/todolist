@@ -8,7 +8,6 @@ import {
     todolistReducer
 } from "./todolist-reducer";
 
-
 test('correct todolist should be removed', () => {
     let todolistId1 = v1()
     let todolistId2 = v1()

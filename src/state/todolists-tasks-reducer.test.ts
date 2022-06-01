@@ -6,7 +6,6 @@ import {taskReducer} from "./task-reducer";
 test('ids should be equals', () => {
     const startTasksState: TasksStateType = {}
     const startTodolistsState: Array<TodolistsType> = []
-
     const action = AddTodolistAC('new todolist')
 
     const endTasksState = taskReducer(startTasksState, action)
