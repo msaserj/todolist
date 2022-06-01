@@ -15,7 +15,7 @@ export type TodolistsType = {
     filter: FilterValueType
 }
 
-type TasksStateType = {
+export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
@@ -35,7 +35,7 @@ function App() {
             {id: v1(), title: 'GraphQL', isDone: false},
         ]
     })
-
+    // tasks
     const removeTask = (id: string, todolistID: string) => {
         let todolistTasks = tasks[todolistID]
         tasks[todolistID] = todolistTasks.filter(task => task.id !== id)
@@ -63,7 +63,7 @@ function App() {
             setTasks({...tasks})
         }
     }
-
+    //todolists
     let [todolists, setTodolists] = useState<Array<TodolistsType>>([
         {id: todolistID1, title: 'What to learn', filter: 'all'},
         {id: todolistID2, title: 'What to buy', filter: 'all'},
