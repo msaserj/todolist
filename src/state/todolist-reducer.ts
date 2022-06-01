@@ -6,7 +6,7 @@ type ActionsType = RemoveTodolistActionType |
     ChangeTodolistTitleActionType |
     ChangeTodolistFilterActionType
 
-type RemoveTodolistActionType = {
+export type RemoveTodolistActionType = {
     type: 'REMOVE-TODOLIST'
     id: string
 }
