@@ -34,7 +34,6 @@ function AppWithRedux() {
     const tasks = useSelector<AppRootState, TasksStateType>(state => state.tasks)
 
 
-    // tasks
     const removeTask = (id: string, todolistID: string) => {
         dispatch(removeTaskAC(id, todolistID))
     }
