@@ -4,8 +4,8 @@ import {AddTodolistActionType, RemoveTodolistActionType} from "./todolist-reduce
 
 type ActionsType = RemoveTaskActionType
 | AddTaskActionType
-| changeTaskStatusActionType
-| changeTaskTitleActionType
+| ChangeTaskStatusActionType
+| ChangeTaskTitleActionType
 | AddTodolistActionType
 | RemoveTodolistActionType
 
@@ -19,13 +19,13 @@ type AddTaskActionType = {
     todolistId: string
     title: string
 }
-type changeTaskStatusActionType = {
+type ChangeTaskStatusActionType = {
     type: 'CHANGE-TASK-STATUS'
     taskID: string
     todolistId: string
     isDone: boolean
 }
-type changeTaskTitleActionType = {
+type ChangeTaskTitleActionType = {
     type: 'CHANGE-TASK-TITLE'
     taskID: string
     todolistId: string
@@ -38,10 +38,10 @@ export const removeTaskAC = (taskID: string, todolistId: string): RemoveTaskActi
 export const addTaskAC = (title: string, todolistId: string): AddTaskActionType => {
     return {type: 'ADD-TASK', todolistId: todolistId, title: title}
 }
-export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistId: string): changeTaskStatusActionType => {
+export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistId: string): ChangeTaskStatusActionType => {
     return {type: 'CHANGE-TASK-STATUS', isDone: isDone, todolistId: todolistId, taskID: taskId}
 }
-export const changeTaskTitleAC = (taskId: string, title: string, todolistId: string): changeTaskTitleActionType => {
+export const changeTaskTitleAC = (taskId: string, title: string, todolistId: string): ChangeTaskTitleActionType => {
     return {type: 'CHANGE-TASK-TITLE', title: title, todolistId: todolistId, taskID: taskId}
 }
 
