@@ -16,7 +16,7 @@ const rootRedcer = combineReducers({
 //     tasks: TasksStateType
 // }
 
-type AppRootState = ReturnType<typeof rootRedcer>
+export type AppRootState = ReturnType<typeof rootRedcer>
 
 export const store = createStore(rootRedcer);
 
