@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import {FilterValueType} from "../App";
+import {FilterValueType} from "../AppWithReducers";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button, Checkbox} from '@mui/material';
