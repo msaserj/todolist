@@ -28,8 +28,10 @@ export type TasksStateType = {
 }
 
 function AppWithRedux() {
-
+    //
     const dispatch = useDispatch();
+    // выбираем из redux при помощи useSelect таски и тудулисты
+    // это вместо локального стейта useState
     const todolists = useSelector<AppRootState, Array<TodolistsType>>(state => state.todolists)
     const tasks = useSelector<AppRootState, TasksStateType>(state => state.tasks)
 
