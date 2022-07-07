@@ -1,9 +1,9 @@
 import {Provider} from "react-redux";
-import {AppRootState} from "../state/store";
+import {AppRootState} from "../../state/store";
 import React from "react";
 import {combineReducers} from "redux";
-import {todolistReducer} from "../state/todolist-reducer";
-import {taskReducer} from "../state/task-reducer";
+import {todolistReducer} from "../../state/todolist-reducer";
+import {taskReducer} from "../../state/task-reducer";
 import { legacy_createStore as createStore} from 'redux'
 
 const rootRedcer = combineReducers({
