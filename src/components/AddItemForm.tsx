@@ -43,7 +43,7 @@ export const AddItemForm = React.memo((props: AddItemFormType) => {
                 error={!!error}
                 helperText={error}
                 value={title}/>
-            <IconButton color={"primary"} size="medium" onClick={addItem}>
+            <IconButton color={"warning"} size="medium" onClick={addItem}>
                 <AddCircleOutlineIcon/>
             </IconButton>
             {/*<button onClick={addItem}>+</button>*/}
