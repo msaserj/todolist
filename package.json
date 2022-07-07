@@ -36,7 +36,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "storybook": "start-storybook -p 6006 -s public",
+    "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "jest:integration": "jest -c integration/jest.config.js",
     "test:integration": "start-server-and-test storybook http-get://localhost:6006 jest:integration"
