@@ -1,6 +1,7 @@
 import React from "react";
 import {action} from "@storybook/addon-actions";
 import {Task} from "./Task";
+import {TaskPriorities, TaskStatuses} from "../api/todolists-api";
 
 export default {
     title: 'Task Component',
@@ -18,13 +19,15 @@ export const TaskBaseExample = (props: any) => {
         <Task changeTaskStatus={changeTaskStatusCallBack}
               changeTaskTitle={changeTaskTitleCallBack}
               removeTask={removeTaskCallBack}
-              task={{id: '1', isDone: true, title: "css"}}
+              task={{id: '1', status: TaskStatuses.Completed, title: "css", todoListId: "todolistID1", description: '',
+                  startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low}}
               todolistId={"todolistId1"}
         />
         <Task changeTaskStatus={changeTaskStatusCallBack}
               changeTaskTitle={changeTaskTitleCallBack}
               removeTask={removeTaskCallBack}
-              task={{id: '2', isDone: false, title: "html"}}
+              task={{id: '2', status: TaskStatuses.New, title: "html", todoListId: "todolistID2", description: '',
+                  startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low}}
               todolistId={'todolistId1'}
         />
     </>
