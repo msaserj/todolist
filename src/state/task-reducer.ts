@@ -1,14 +1,15 @@
 import {TasksStateType} from "../AppWithRedux";
 import {v1} from "uuid";
-import {AddTodolistActionType, RemoveTodolistActionType} from "./todolist-reducer";
+import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType} from "./todolist-reducer";
 import {TaskPriorities, TaskStatuses, TaskType} from "../api/todolists-api";
 
 type ActionsType = RemoveTaskActionType
-| AddTaskActionType
-| ChangeTaskStatusActionType
-| ChangeTaskTitleActionType
-| AddTodolistActionType
-| RemoveTodolistActionType
+    | AddTaskActionType
+    | ChangeTaskStatusActionType
+    | ChangeTaskTitleActionType
+    | AddTodolistActionType
+    | RemoveTodolistActionType
+    | SetTodolistsActionType
 
 type RemoveTaskActionType = {
     type: 'REMOVE-TASK'
@@ -68,26 +69,36 @@ export const taskReducer = (state: TasksStateType = initialState, action: Action
             stateCopy[action.todolistId] = tasks.filter(t => t.id !== action.taskId)
             return stateCopy
         }
-         case 'ADD-TASK': {
-             const stateCopy = {...state}
-             const tasks = stateCopy[action.todolistId]
-             const newTask: TaskType = {id: v1(), title: action.title, status: TaskStatuses.Completed, todoListId: action.todolistId, description: '',
-                 startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low}
+        case 'ADD-TASK': {
+            const stateCopy = {...state}
+            const tasks = stateCopy[action.todolistId]
+            const newTask: TaskType = {
+                id: v1(),
+                title: action.title,
+                status: TaskStatuses.Completed,
+                todoListId: action.todolistId,
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low
+            }
 
-             stateCopy[action.todolistId] = [newTask, ...tasks]
-             return stateCopy
-         }
+            stateCopy[action.todolistId] = [newTask, ...tasks]
+            return stateCopy
+        }
         case 'CHANGE-TASK-STATUS': {
 
             const tasks = state[action.todolistId];
-            state[action.todolistId] = tasks.map(t => t.id === action.taskID ? {...t, status: action.status} :t)
+            state[action.todolistId] = tasks.map(t => t.id === action.taskID ? {...t, status: action.status} : t)
             return ({...state})
         }
         case 'CHANGE-TASK-TITLE': {
             const tasks = state[action.todolistId]
             state[action.todolistId] = tasks.map(t => t.id === action.taskID
                 ? {...t, title: action.title}
-                :t)
+                : t)
             return ({...state})
         }
         case 'ADD-TODOLIST': {
@@ -100,9 +111,16 @@ export const taskReducer = (state: TasksStateType = initialState, action: Action
             delete stateCopy[action.id]
             return stateCopy
         }
+        case 'SET-TODOLISTS': {
+            const stateCopy = {...state}
+            action.todolists.forEach((tl) => {
+                stateCopy[tl.id] = []
+            })
+            return stateCopy;
+        }
         default:
             return state
-            //throw new Error('I don\'t understand this type')
+        //throw new Error('I don\'t understand this type')
     }
 }
 
