@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {Todolist} from "./components/Todolist";
 import {AddItemForm} from "./components/AddItemForm";
@@ -8,7 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC, FilterValueType,
+    changeTodolistTitleAC, fetchTodolistsThunk, FilterValueType,
     removeTodolistAC, TodolistDomainType,
 } from "./state/todolist-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/task-reducer";
@@ -32,6 +32,11 @@ function AppWithRedux() {
     // это вместо локального стейта useState
     const todolists = useSelector<AppRootState, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootState, TasksStateType>(state => state.tasks)
+
+    useEffect(()=> {
+        fetchTodolistsThunk(dispatch);
+    }, [])
+
 
     const removeTask = useCallback((id: string, todolistID: string) => {
         dispatch(removeTaskAC(id, todolistID))
