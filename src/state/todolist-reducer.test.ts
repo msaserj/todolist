@@ -29,7 +29,7 @@ test('correct todolist should be removed', () => {
     expect(endState[0].id).toBe(todolistId2)
 })
 
-test.skip('correct todolist should be added', () => {
+test('correct todolist should be added', () => {
 
     let todolist: TodolistType = {
         title: "New Todolist",
