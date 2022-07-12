@@ -21,11 +21,9 @@ import {useAppDispatch, useAppSelector} from "./state/hooks";
 
 
 
-
 export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
-
 
 function AppWithRedux() {
     console.log("App is called")
@@ -67,8 +65,6 @@ function AppWithRedux() {
     const addTodoList = useCallback((title: string) => {
         dispatch(addTodolistTC(title))
     },[dispatch])
-
-
 
     useEffect(()=> {
         dispatch(fetchTodolistsTC())
