@@ -108,5 +108,11 @@ export const fetchTodolistsTC = (): AppThunk => (dispatch: Dispatch) => {
             dispatch(setTodolistsAC(res.data))
         })
 }
+export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch: Dispatch) => {
+    todolistsAPI.deleteTodolists(todolistId)
+        .then((res) => {
+            dispatch(removeTodolistAC(todolistId))
+        })
+}
 
 

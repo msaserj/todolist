@@ -9,7 +9,7 @@ import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC, fetchTodolistsTC, FilterValueType,
-    removeTodolistAC, TodolistDomainType,
+    removeTodolistTC, TodolistDomainType,
 } from "./state/todolist-reducer";
 import {
     addTaskTC,
@@ -41,12 +41,9 @@ function AppWithRedux() {
         dispatch(removeTaskTC(todolistID, id))
     },[dispatch])
 
-
     const addTask = useCallback((todolistID: string, title: string) => {
         dispatch(addTaskTC(todolistID, title))
     },[dispatch])
-
-
 
     const changeTaskStatus = useCallback((id: string, status: TaskStatuses, todolistID: string) => {
         dispatch(changeTaskStatusAC(id, status, todolistID))
@@ -59,15 +56,16 @@ function AppWithRedux() {
     const changeFilter = useCallback((todolistID: string, value: FilterValueType) => {
         dispatch(changeTodolistFilterAC(todolistID, value))
     },[dispatch])
-    const removeTodolist = useCallback((id: string) => {
-        const action = removeTodolistAC(id)
-        dispatch(action)
+
+    const removeTodolist = useCallback((todolistId: string) => {
+        dispatch(removeTodolistTC(todolistId))
 
     },[dispatch])
     const changeTodolistTitle = useCallback((id: string, newTitle: string) => {
         const action = changeTodolistTitleAC(id, newTitle)
         dispatch(action)
     }, [dispatch])
+
     const addTodoList = useCallback((title: string) => {
         const action = addTodolistAC(title)
         dispatch(action)
