@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button} from '@mui/material';
@@ -7,6 +7,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {Task} from "./Task";
 import {TaskStatuses, TaskType} from "../api/todolists-api";
 import {FilterValueType} from "../state/todolist-reducer";
+import {useAppDispatch} from "../state/hooks";
+import {fetchTasksTC} from "../state/task-reducer";
 
 
 type PropsType = {
@@ -26,6 +28,8 @@ type PropsType = {
 }
 
 export const Todolist = React.memo((props: PropsType) => {
+    const dispatch = useAppDispatch();
+
     console.log("Todolist is called")
     // всё переехало в отдельную универсальную компоненту
     const addTask = useCallback((title: string) => {
@@ -49,6 +53,11 @@ export const Todolist = React.memo((props: PropsType) => {
     if (props.filter === "completed") {
         tasksForTodoList = props.tasks.filter(task => task.status === TaskStatuses.Completed)
     }
+
+    useEffect(()=> {
+        dispatch(fetchTasksTC(props.id))
+    }, [])
+
     return (
         <div>
             {/*<button onClick={removeTodolistHandler}>✖</button>*/}
