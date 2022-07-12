@@ -41,8 +41,8 @@ type ChangeTaskTitleActionType = {
     title: string
 }
 
-export const removeTaskAC = (taskID: string, todolistId: string): RemoveTaskActionType => {
-    return {type: 'REMOVE-TASK', todolistId: todolistId, taskId: taskID}
+export const removeTaskAC = (todolistId: string, taskId: string): RemoveTaskActionType => {
+    return {type: 'REMOVE-TASK', todolistId: todolistId, taskId: taskId}
 }
 export const addTaskAC = (title: string, todolistId: string): AddTaskActionType => {
     return {type: 'ADD-TASK', todolistId: todolistId, title: title}
@@ -151,11 +151,19 @@ export const taskReducer = (state: TasksStateType = initialState, action: TaskAc
 
 //sanki
 
+
+
 export const fetchTasksTC = (todolistId: string): AppThunk => (dispatch: Dispatch) => {
     todolistsAPI.getTasks(todolistId)
         .then((res) => {
             dispatch(setTasksAC(res.data.items, todolistId))
         })
+}
+export const removeTaskTC = (todolistId: string, taskId: string): AppThunk => (dispatch: Dispatch) => {
+    todolistsAPI.deleteTask(todolistId, taskId)
+    .then((res)=> {
+        dispatch(removeTaskAC(todolistId, taskId))
+    })
 }
 
 
