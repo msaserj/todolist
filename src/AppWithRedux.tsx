@@ -8,13 +8,13 @@ import Toolbar from '@mui/material/Toolbar';
 import {
     addTodolistTC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC, fetchTodolistsTC, FilterValueType,
+    fetchTodolistsTC, FilterValueType,
     removeTodolistTC, TodolistDomainType,
 } from "./state/todolist-reducer";
 import {
     addTaskTC,
     changeTaskStatusAC,
-    changeTaskTitleAC,
+    changeTaskTitleAC, changeTodolistTitleTC,
     removeTaskTC
 } from "./state/task-reducer";
 import {TaskStatuses, TaskType} from "./api/todolists-api";
@@ -61,9 +61,8 @@ function AppWithRedux() {
         dispatch(removeTodolistTC(todolistId))
 
     },[dispatch])
-    const changeTodolistTitle = useCallback((id: string, newTitle: string) => {
-        const action = changeTodolistTitleAC(id, newTitle)
-        dispatch(action)
+    const changeTodolistTitle = useCallback((todolistId: string, title: string) => {
+        dispatch(changeTodolistTitleTC(todolistId, title))
     }, [dispatch])
 
     const addTodoList = useCallback((title: string) => {

@@ -1,6 +1,6 @@
 import {TasksStateType} from "../AppWithRedux";
 import {
-    AddTodolistActionType,
+    AddTodolistActionType, changeTodolistTitleAC,
     RemoveTodolistActionType,
     SetTodolistsActionType
 } from "./todolist-reducer";
@@ -156,6 +156,12 @@ export const addTaskTC = (todolistId: string, title: string): AppThunk => (dispa
     todolistsAPI.createTask(todolistId, title)
     .then(res => {
         dispatch(addTaskAC(res.data.data.item))
+    })
+}
+export const changeTodolistTitleTC = (todolistId: string, title: string): AppThunk => (dispatch: Dispatch) => {
+    todolistsAPI.updateTodolist(todolistId, title)
+    .then(res => {
+        dispatch(changeTodolistTitleAC(todolistId, title))
     })
 }
 
