@@ -7,7 +7,7 @@ import {TaskStatuses, TaskType} from "../api/todolists-api";
 
 type TaskPropsType = {
     changeTaskStatus: (todolistID: string, id: string, status: TaskStatuses) => void
-    changeTaskTitle: (id: string, newTitle: string, todolistID: string) => void
+    changeTaskTitle: (todolistID: string, id: string, newTitle: string) => void
     removeTask: (todolistID: string, taskId: string) => void
     task: TaskType
     todolistId: string
@@ -22,7 +22,7 @@ export const Task = React.memo((props: TaskPropsType) => {
             : TaskStatuses.New)
     }
     const onChangeTitleHandler = useCallback((newTitle: string) => {
-        props.changeTaskTitle(props.task.id, newTitle, props.todolistId)
+        props.changeTaskTitle(props.todolistId, props.task.id, newTitle)
     },[props.task.id, props.changeTaskTitle, props.todolistId])
     return (
         <li className={props.task.status === TaskStatuses.Completed ? "is-done" : ""} key={props.task.id}>

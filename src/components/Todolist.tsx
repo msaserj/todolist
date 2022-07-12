@@ -19,7 +19,7 @@ type PropsType = {
     changeFilter: (todolistID: string, value: FilterValueType) => void
     addTask: (todolistID: string, title: string) => void
     changeTaskStatus: (todolistID: string, taskId: string, status: TaskStatuses) => void
-    changeTaskTitle: (id: string, newTitle: string, todolistID: string) => void
+    changeTaskTitle: (todolistID: string, id: string, title: string) => void
     removeTask: (todolistID: string, taskId: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
     filter: FilterValueType
