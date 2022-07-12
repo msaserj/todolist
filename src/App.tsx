@@ -59,7 +59,7 @@ function App() {
         tasks[todolistID] = [task, ...todolistTasks]
         setTasks({...tasks})
     }
-    const changeTaskStatus = (id: string, status: TaskStatuses, todolistID: string) => {
+    const changeTaskStatus = (todolistID: string, id: string, status: TaskStatuses) => {
         let todolistTasks = tasks[todolistID]
         let task = todolistTasks.find(t => t.id === id)
         if (task) {

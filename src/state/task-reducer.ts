@@ -4,8 +4,8 @@ import {
     RemoveTodolistActionType,
     SetTodolistsActionType
 } from "./todolist-reducer";
-import {TaskStatuses, TaskType, todolistsAPI} from "../api/todolists-api";
-import {AppThunk} from "./store";
+import {TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from "../api/todolists-api";
+import {AppThunk, RootState} from "./store";
 import {Dispatch} from "redux";
 
 export type TaskActionsType = RemoveTaskActionType
@@ -45,7 +45,7 @@ export const removeTaskAC = (todolistId: string, taskId: string): RemoveTaskActi
 export const addTaskAC = (task: TaskType): AddTaskActionType => {
     return {type: 'ADD-TASK', task}
 }
-export const changeTaskStatusAC = (taskId: string, status: TaskStatuses, todolistId: string): ChangeTaskStatusActionType => {
+export const changeTaskStatusAC = (todolistId: string, taskId: string, status: TaskStatuses): ChangeTaskStatusActionType => {
     return {type: 'CHANGE-TASK-STATUS', status, todolistId: todolistId, taskID: taskId}
 }
 export const changeTaskTitleAC = (taskId: string, title: string, todolistId: string): ChangeTaskTitleActionType => {
@@ -162,6 +162,26 @@ export const changeTodolistTitleTC = (todolistId: string, title: string): AppThu
     todolistsAPI.updateTodolist(todolistId, title)
     .then(res => {
         dispatch(changeTodolistTitleAC(todolistId, title))
+    })
+}
+export const changeTaskStatusTC = (todolistId: string, taskId: string, status: TaskStatuses): AppThunk => (dispatch: Dispatch, getState: ()=> RootState) => {
+    const  state = getState();
+    const task = state.tasks[todolistId].find(t => t.id ===taskId);
+    if(!task){
+        console.warn("task not found")
+        return
+    }
+    const model: UpdateTaskModelType = {
+        status: status,
+        title: task.title,
+        description: task.description,
+        priority: task.priority,
+        startDate: task.startDate,
+        deadline: task.deadline
+    }
+    todolistsAPI.updateTask(todolistId, taskId, model)
+    .then(res => {
+        dispatch(changeTaskStatusAC(todolistId, taskId, status))
     })
 }
 

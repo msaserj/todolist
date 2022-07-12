@@ -67,8 +67,8 @@ function AppWithReducers() {
             id: "1"
         }))
     }
-    const changeTaskStatus = (id: string, status: TaskStatuses, todolistID: string) => {
-       dispatchToTasksReducer(changeTaskStatusAC(id, status, todolistID))
+    const changeTaskStatus = (todolistID: string, id: string, status: TaskStatuses) => {
+       dispatchToTasksReducer(changeTaskStatusAC(todolistID, id, status))
 
     }
     const changeTaskTitle = (id: string, newTitle: string, todolistID: string) => {

@@ -63,7 +63,7 @@ test('correct task should be added to correct array', () => {
 
 test('status of specified task should be changed', () => {
 
-    const action = changeTaskStatusAC('2', TaskStatuses.New, 'todolistId2')
+    const action = changeTaskStatusAC('todolistId2','2', TaskStatuses.New)
     const endState = taskReducer(startState, action)
 
     expect(endState["todolistId2"][1].status).toBe(TaskStatuses.New)

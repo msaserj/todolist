@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import {TaskStatuses, TaskType} from "../api/todolists-api";
 
 type TaskPropsType = {
-    changeTaskStatus: (id: string, status: TaskStatuses, todolistID: string) => void
+    changeTaskStatus: (todolistID: string, id: string, status: TaskStatuses) => void
     changeTaskTitle: (id: string, newTitle: string, todolistID: string) => void
     removeTask: (todolistID: string, taskId: string) => void
     task: TaskType
@@ -18,8 +18,8 @@ export const Task = React.memo((props: TaskPropsType) => {
     }
     const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked
-        props.changeTaskStatus(props.task.id, newIsDoneValue ? TaskStatuses.Completed
-            : TaskStatuses.New, props.todolistId)
+        props.changeTaskStatus(props.todolistId, props.task.id, newIsDoneValue ? TaskStatuses.Completed
+            : TaskStatuses.New)
     }
     const onChangeTitleHandler = useCallback((newTitle: string) => {
         props.changeTaskTitle(props.task.id, newTitle, props.todolistId)
