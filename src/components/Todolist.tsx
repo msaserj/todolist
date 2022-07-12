@@ -17,7 +17,7 @@ type PropsType = {
     title: string
     tasks: Array<TaskType>
     changeFilter: (todolistID: string, value: FilterValueType) => void
-    addTask: (title: string, todolistID: string) => void
+    addTask: (todolistID: string, title: string) => void
     changeTaskStatus: (id: string, status: TaskStatuses, todolistID: string) => void
     changeTaskTitle: (id: string, newTitle: string, todolistID: string) => void
     removeTask: (todolistID: string, taskId: string) => void
@@ -33,7 +33,7 @@ export const Todolist = React.memo((props: PropsType) => {
     console.log("Todolist is called")
     // всё переехало в отдельную универсальную компоненту
     const addTask = useCallback((title: string) => {
-        props.addTask(title, props.id)
+        props.addTask(props.id, title)
     },[props.title, props.id])
     const removeTodolistHandler = () => {
         props.removeTodolist(props.id)
