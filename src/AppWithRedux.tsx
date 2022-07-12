@@ -8,13 +8,12 @@ import Toolbar from '@mui/material/Toolbar';
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC, fetchTodolistsThunk, FilterValueType,
+    changeTodolistTitleAC, fetchTodolistsTC, FilterValueType,
     removeTodolistAC, TodolistDomainType,
 } from "./state/todolist-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/task-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from "./state/store";
 import {TaskStatuses, TaskType} from "./api/todolists-api";
+import {useAppDispatch, useAppSelector} from "./state/hooks";
 
 
 
@@ -27,15 +26,12 @@ export type TasksStateType = {
 function AppWithRedux() {
     console.log("App is called")
     //
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     // выбираем из redux при помощи useSelect таски и тудулисты
     // это вместо локального стейта useState
-    const todolists = useSelector<AppRootState, Array<TodolistDomainType>>(state => state.todolists)
-    const tasks = useSelector<AppRootState, TasksStateType>(state => state.tasks)
+    const todolists = useAppSelector<Array<TodolistDomainType>>(state => state.todolists)
+    const tasks = useAppSelector<TasksStateType>(state => state.tasks)
 
-    useEffect(()=> {
-        fetchTodolistsThunk(dispatch);
-    }, [])
 
 
     const removeTask = useCallback((id: string, todolistID: string) => {
@@ -67,8 +63,13 @@ function AppWithRedux() {
     const addTodoList = useCallback((title: string) => {
         const action = addTodolistAC(title)
         dispatch(action)
-
     },[dispatch])
+
+
+
+    useEffect(()=> {
+        dispatch(fetchTodolistsTC())
+    }, [])
 
     return (
         <div className="App">
