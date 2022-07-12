@@ -6,7 +6,7 @@ import {AppBar, Button, Container, Grid, IconButton, Paper, Typography} from "@m
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import {
-    addTodolistAC,
+    addTodolistTC,
     changeTodolistFilterAC,
     changeTodolistTitleAC, fetchTodolistsTC, FilterValueType,
     removeTodolistTC, TodolistDomainType,
@@ -67,8 +67,7 @@ function AppWithRedux() {
     }, [dispatch])
 
     const addTodoList = useCallback((title: string) => {
-        const action = addTodolistAC(title)
-        dispatch(action)
+        dispatch(addTodolistTC(title))
     },[dispatch])
 
 
