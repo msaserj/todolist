@@ -9,7 +9,6 @@ type AddItemFormType = {
 
 export const AddItemForm = React.memo((props: AddItemFormType) => {
     console.log("AdditemForm is called")
-    // переехало сюда
     let [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
     const addItem = () => {
