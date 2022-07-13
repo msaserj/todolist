@@ -1,11 +1,10 @@
-import {TasksStateType} from "../AppWithRedux";
 import {
     AddTodolistActionType,
     RemoveTodolistActionType,
     SetTodolistsActionType, changeTodolistTitleAC, TodolistActionsType
 } from "./todolist-reducer";
-import {TaskType, todolistsAPI, UpdateTaskModelType} from "../api/todolists-api";
-import {AppThunk, RootState} from "./store";
+import {TaskType, todolistsAPI, UpdateTaskModelType} from "../../api/todolists-api";
+import {AppThunk, RootState} from "../../App/store";
 import {Dispatch} from "redux";
 
 // ActionCreators
@@ -105,6 +104,11 @@ export const updateTaskTC = (todolistId: string, taskId: string, domainModel: Up
 }
 
 // types
+
+export type TasksStateType = {
+    [key: string]: Array<TaskType>
+}
+
 export type TaskActionsType =
     | ReturnType<typeof removeTaskAC>
     | ReturnType<typeof addTaskAC>
