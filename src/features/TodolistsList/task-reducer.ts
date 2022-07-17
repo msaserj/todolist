@@ -6,7 +6,7 @@ import {
 import {TaskType, todolistsAPI, UpdateTaskModelType} from "../../api/todolists-api";
 import {AppThunk, RootState} from "../../App/store";
 import {Dispatch} from "redux";
-import {setErrorAC, SetErrorActionType} from "../../App/app-reducer";
+import {setErrorAC, SetErrorActionType, setStatusAC, SetStatusActionType} from "../../App/app-reducer";
 
 // ActionCreators
 export const removeTaskAC = (todolistId: string, taskId: string) => {
@@ -49,10 +49,12 @@ export const taskReducer = (state: TasksStateType = initialState, action: TaskAc
 }
 
 // sanki
-export const fetchTasksTC = (todolistId: string): AppThunk => (dispatch: Dispatch<TaskActionsType>) => {
+export const fetchTasksTC = (todolistId: string): AppThunk => (dispatch: Dispatch<TaskActionsType | SetStatusActionType>) => {
+    dispatch(setStatusAC('loading'))
     todolistsAPI.getTasks(todolistId)
         .then((res) => {
             dispatch(setTasksAC(res.data.items, todolistId))
+            dispatch(setStatusAC('succeeded'))
         })
 }
 export const removeTaskTC = (todolistId: string, taskId: string): AppThunk => (dispatch: Dispatch<TaskActionsType>) => {
