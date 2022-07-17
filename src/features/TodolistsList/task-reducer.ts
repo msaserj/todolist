@@ -63,17 +63,20 @@ export const removeTaskTC = (todolistId: string, taskId: string): AppThunk => (d
             dispatch(removeTaskAC(todolistId, taskId))
         })
 }
-export const addTaskTC = (todolistId: string, title: string): AppThunk => (dispatch: Dispatch<TaskActionsType | SetErrorActionType>) => {
+export const addTaskTC = (todolistId: string, title: string): AppThunk => (dispatch: Dispatch<TaskActionsType | SetErrorActionType | SetStatusActionType>) => {
+    dispatch(setStatusAC('loading'))
     todolistsAPI.createTask(todolistId, title)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(addTaskAC(res.data.data.item))
+                dispatch(setStatusAC('succeeded'))
             } else {
                 if (res.data.messages.length) {
                     dispatch(setErrorAC(res.data.messages[0]))
                 } else {
                     dispatch(setErrorAC('Some error occurred'))
                 }
+                dispatch(setStatusAC('failed'))
             }
 
         })
