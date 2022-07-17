@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
-import {AppBar, Button, Container, IconButton, Typography} from "@mui/material";
+import {AppBar, Button, Container, IconButton, LinearProgress, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import {TodolistsList} from "../features/TodolistsList/TodolistsList";
+import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 
 
 function App() {
@@ -26,6 +27,8 @@ function App() {
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
+                <LinearProgress/>
+                <ErrorSnackbar/>
             </AppBar>
             <Container fixed>
                 {/*universal component*/}
