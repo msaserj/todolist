@@ -6,6 +6,7 @@ import {
 import {TaskType, todolistsAPI, UpdateTaskModelType} from "../../api/todolists-api";
 import {AppThunk, RootState} from "../../App/store";
 import {Dispatch} from "redux";
+import {setErrorAC, SetErrorActionType} from "../../App/app-reducer";
 
 // ActionCreators
 export const removeTaskAC = (todolistId: string, taskId: string) => {
@@ -60,10 +61,19 @@ export const removeTaskTC = (todolistId: string, taskId: string): AppThunk => (d
             dispatch(removeTaskAC(todolistId, taskId))
         })
 }
-export const addTaskTC = (todolistId: string, title: string): AppThunk => (dispatch: Dispatch<TaskActionsType>) => {
+export const addTaskTC = (todolistId: string, title: string): AppThunk => (dispatch: Dispatch<TaskActionsType | SetErrorActionType>) => {
     todolistsAPI.createTask(todolistId, title)
         .then(res => {
-            dispatch(addTaskAC(res.data.data.item))
+            if (res.data.resultCode === 0) {
+                dispatch(addTaskAC(res.data.data.item))
+            } else {
+                if (res.data.messages.length) {
+                    dispatch(setErrorAC(res.data.messages[0]))
+                } else {
+                    dispatch(setErrorAC('Some error occurred'))
+                }
+            }
+
         })
 }
 export const changeTodolistTitleTC = (todolistId: string, title: string): AppThunk => (dispatch: Dispatch<TodolistActionsType>) => {
