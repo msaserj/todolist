@@ -2,7 +2,7 @@
 
 
 export type InitialStateType = {
-    status: 'idle' | 'loading' | 'succeeded' | 'failed',
+    status: RequestStatusType,
     error: string | null
 }
 

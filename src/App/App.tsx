@@ -7,7 +7,7 @@ import {TodolistsList} from "../features/TodolistsList/TodolistsList";
 import {useSelector} from "react-redux";
 import {RootState} from "./store";
 import {RequestStatusType} from "./app-reducer";
-import {log} from "util";
+import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 
 
 function App() {
@@ -15,6 +15,7 @@ function App() {
     const status = useSelector<RootState, RequestStatusType>((state) => state.app.status)
    return (
         <div className="App">
+            <ErrorSnackbar/>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
