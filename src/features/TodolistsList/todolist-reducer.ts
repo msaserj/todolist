@@ -2,6 +2,7 @@ import {todolistsAPI, TodolistType} from "../../api/todolists-api";
 import {Dispatch} from "redux";
 import {AppThunk} from "../../App/store";
 import {RequestStatusType, setAppStatusAC, SetStatusActionType} from "../../App/app-reducer";
+import {handleNetworkAppError} from "../../utils/error-utils";
 
 // ActionCreators
 export const removeTodolistAC = (todolistId: string) => {
@@ -50,6 +51,9 @@ export const fetchTodolistsTC = (): AppThunk => (dispatch: ThunkDispatchType) =>
             dispatch(setTodolistsAC(res.data))
             dispatch(setAppStatusAC('succeeded'))
         })
+        .catch((err) => {
+            handleNetworkAppError(err, dispatch);
+        })
 }
 export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch: ThunkDispatchType) => {
     dispatch(setAppStatusAC('loading'))
@@ -58,6 +62,9 @@ export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch: Thu
         .then((res) => {
             dispatch(removeTodolistAC(todolistId))
             dispatch(setAppStatusAC('succeeded'))
+        })
+        .catch((err) => {
+            handleNetworkAppError(err, dispatch);
         })
 }
 export const addTodolistTC = (title: string): AppThunk => (dispatch: ThunkDispatchType) => {
@@ -68,11 +75,9 @@ export const addTodolistTC = (title: string): AppThunk => (dispatch: ThunkDispat
             dispatch(setAppStatusAC('succeeded'))
         })
         .catch((err) => {
-            dispatch(setAppStatusAC(err.message))
-
+            handleNetworkAppError(err, dispatch);
         })
 }
-
 
 // types
 export type FilterValueType = "all" | "active" | "completed"
