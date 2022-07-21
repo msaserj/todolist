@@ -67,6 +67,10 @@ export const addTodolistTC = (title: string): AppThunk => (dispatch: ThunkDispat
             dispatch(addTodolistAC(res.data.data.item))
             dispatch(setAppStatusAC('succeeded'))
         })
+        .catch((err) => {
+            dispatch(setAppStatusAC(err.message))
+
+        })
 }
 
 
