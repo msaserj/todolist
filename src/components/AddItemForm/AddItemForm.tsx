@@ -5,15 +5,16 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 type AddItemFormType = {
     addItem: (title: string) => void
+    disabled?: boolean
 }
 
-export const AddItemForm = React.memo((props: AddItemFormType) => {
+export const AddItemForm = React.memo(({addItem, disabled = false}: AddItemFormType) => {
     console.log("AdditemForm is called")
     let [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
-    const addItem = () => {
+    const addItemHandler = () => {
         if (title.trim()) {
-            props.addItem(title);
+            addItem(title);
             setTitle('')
         } else {
             setError("Title is required")
@@ -27,7 +28,7 @@ export const AddItemForm = React.memo((props: AddItemFormType) => {
             setError(null)
         }
         if (e.key === "Enter") {
-            addItem()
+            addItemHandler()
         }
     }
     return (
@@ -42,7 +43,7 @@ export const AddItemForm = React.memo((props: AddItemFormType) => {
                 error={!!error}
                 helperText={error}
                 value={title}/>
-            <IconButton color={"warning"} size="medium" onClick={addItem}>
+            <IconButton color={"warning"} size="medium" onClick={addItemHandler} disabled={disabled}>
                 <AddCircleOutlineIcon/>
             </IconButton>
             {/*<button onClick={addItem}>+</button>*/}
