@@ -49,7 +49,7 @@ export const taskReducer = (state: TasksStateType = initialState, action: TaskAc
 }
 
 // sanki
-export const fetchTasksTC = (todolistId: string): AppThunk => (dispatch: Dispatch<TaskActionsType | SetStatusActionType>) => {
+export const fetchTasksTC = (todolistId: string): AppThunk => (dispatch: ThunkDispatchType) => {
     dispatch(setStatusAC('loading'))
     todolistsAPI.getTasks(todolistId)
         .then((res) => {
@@ -57,13 +57,13 @@ export const fetchTasksTC = (todolistId: string): AppThunk => (dispatch: Dispatc
             dispatch(setStatusAC('succeeded'))
         })
 }
-export const removeTaskTC = (todolistId: string, taskId: string): AppThunk => (dispatch: Dispatch<TaskActionsType>) => {
+export const removeTaskTC = (todolistId: string, taskId: string): AppThunk => (dispatch: ThunkDispatchType) => {
     todolistsAPI.deleteTask(todolistId, taskId)
         .then((res) => {
             dispatch(removeTaskAC(todolistId, taskId))
         })
 }
-export const addTaskTC = (todolistId: string, title: string): AppThunk => (dispatch: Dispatch<TaskActionsType | SetErrorActionType | SetStatusActionType>) => {
+export const addTaskTC = (todolistId: string, title: string): AppThunk => (dispatch: ThunkDispatchType) => {
     dispatch(setStatusAC('loading'))
     todolistsAPI.createTask(todolistId, title)
         .then(res => {
@@ -81,7 +81,7 @@ export const addTaskTC = (todolistId: string, title: string): AppThunk => (dispa
 
         })
 }
-export const changeTodolistTitleTC = (todolistId: string, title: string): AppThunk => (dispatch: Dispatch<TodolistActionsType>) => {
+export const changeTodolistTitleTC = (todolistId: string, title: string): AppThunk => (dispatch: ThunkDispatchType) => {
     todolistsAPI.updateTodolist(todolistId, title)
         .then(res => {
             dispatch(changeTodolistTitleAC(todolistId, title))
@@ -96,7 +96,7 @@ export type UpdateDomainTaskModelType = {
     deadline?: string
 }
 export const updateTaskTC = (todolistId: string, taskId: string, domainModel: UpdateDomainTaskModelType): AppThunk =>
-    (dispatch: Dispatch<TaskActionsType>, getState: () => RootState) => {
+    (dispatch: ThunkDispatchType, getState: () => RootState) => {
     const state = getState();
     const task = state.tasks[todolistId].find(t => t.id === taskId);
     if (!task) {
@@ -132,4 +132,6 @@ export type TaskActionsType =
     | RemoveTodolistActionType
     | SetTodolistsActionType
     | ReturnType<typeof setTasksAC>
+
+type ThunkDispatchType = Dispatch<TodolistActionsType | TaskActionsType | SetErrorActionType | SetStatusActionType>
 

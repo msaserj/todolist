@@ -9,8 +9,11 @@ import {RootState} from "./store";
 import {RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 
+type PropsType = {
+    demo?: boolean
+}
 
-function App() {
+function App({demo = false}: PropsType) {
     console.log("App is called")
     const status = useSelector<RootState, RequestStatusType>((state) => state.app.status)
    return (
@@ -36,7 +39,7 @@ function App() {
             </AppBar>
             <Container fixed>
                 {/*universal component*/}
-                <TodolistsList/>
+                <TodolistsList demo={demo}/>
             </Container>
         </div>
 

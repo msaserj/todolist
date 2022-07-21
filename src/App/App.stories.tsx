@@ -12,5 +12,5 @@ export default {
 // const changeCallBack = action("Value changed")
 
 export const AppBaseExample = () => {
-    return <App/>
+    return <App demo={true} />
 }

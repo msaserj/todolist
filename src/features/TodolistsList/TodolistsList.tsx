@@ -14,7 +14,11 @@ import {Grid, Paper} from "@mui/material";
 import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
 import {Todolist} from "./Todolist/Todolist";
 
-export const TodolistsList: React.FC = () => {
+type PropsType = {
+    demo?: boolean
+}
+
+export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     const dispatch = useAppDispatch();
     // выбираем из redux при помощи useSelect таски и тудулисты
     // это вместо локального стейта useState
@@ -54,7 +58,10 @@ export const TodolistsList: React.FC = () => {
     }, [dispatch])
 
     useEffect(() => {
-        dispatch(fetchTodolistsTC())
+        if (!demo) {
+            dispatch(fetchTodolistsTC())
+        }
+
     }, [])
 
     return (
@@ -82,7 +89,8 @@ export const TodolistsList: React.FC = () => {
                                     todolistID={tdl.id}
                                     removeTodolist={removeTodolist}
                                     changeTaskTitle={changeTaskTitle}
-                                    changeTodolistTitle={changeTodolistTitle}/>
+                                    changeTodolistTitle={changeTodolistTitle}
+                                    demo={demo}/>
                             </Paper>
                         </Grid>
                     )

@@ -58,6 +58,7 @@ export const addTodolistTC = (title: string): AppThunk => (dispatch: ThunkDispat
     todolistsAPI.createTodolists(title)
         .then((res) => {
             dispatch(addTodolistAC(res.data.data.item))
+            dispatch(setStatusAC('succeeded'))
         })
 }
 
