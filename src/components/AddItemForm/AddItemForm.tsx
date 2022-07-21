@@ -34,6 +34,7 @@ export const AddItemForm = React.memo(({addItem, disabled = false}: AddItemFormT
     return (
         <Grid xs={12}>
             <TextField
+                disabled={disabled}
                 onChange={onChangeHandler}
                 onKeyPress={onKeyPressHandler}
                 className={error ? "error" : ""}
