@@ -42,12 +42,7 @@ export const todolistsAPI = {
     }
 }
 
-export type LoginParamsType = {
-    email: string
-    password: string
-    rememberMe: boolean
-    captcha?: string
-}
+
 export const authAPI = {
     // auth Endpoints
     login(params: LoginParamsType) {
@@ -55,7 +50,15 @@ export const authAPI = {
     }
 }
 
-// types
+// types authAPI
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
+}
+
+// types todolistsAPI
 export type TodolistType = {
     id: string
     title: string
