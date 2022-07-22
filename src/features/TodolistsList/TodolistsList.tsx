@@ -13,17 +13,28 @@ import {TaskStatuses} from "../../api/todolists-api";
 import {Grid, Paper} from "@mui/material";
 import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
 import {Todolist} from "./Todolist/Todolist";
+import {Navigate} from "react-router-dom";
+
 
 type PropsType = {
     demo?: boolean
 }
 
 export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
+
     const dispatch = useAppDispatch();
     // выбираем из redux при помощи useSelect таски и тудулисты
     // это вместо локального стейта useState
     const todolists = useAppSelector<Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useAppSelector<TasksStateType>(state => state.tasks)
+    const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
+
+    useEffect(() => {
+        if (demo || !isLoggedIn) {
+            return;
+        }
+        dispatch(fetchTodolistsTC())
+    }, [])
 
     const removeTask = useCallback((todolistID: string, id: string) => {
         dispatch(removeTaskTC(todolistID, id))
@@ -57,12 +68,9 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         dispatch(addTodolistTC(title))
     }, [dispatch])
 
-    useEffect(() => {
-        if (!demo) {
-            dispatch(fetchTodolistsTC())
-        }
-
-    }, [])
+    if (!isLoggedIn) {
+        return <Navigate to="/login"/>
+    }
 
     return (
         <>

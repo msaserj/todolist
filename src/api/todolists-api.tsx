@@ -47,6 +47,12 @@ export const authAPI = {
     // auth Endpoints
     login(params: LoginParamsType) {
         return instance.post<ResponseType<{userId?: number}>>('auth/login' , params);
+    },
+    me(){
+        return instance.get<ResponseType<{id: number; email: string; login: string}>>('auth/me');
+    },
+    logOut(){
+        return instance.delete<ResponseType<{userId?: number}>>('auth/login');
     }
 }
 
@@ -57,6 +63,11 @@ export type LoginParamsType = {
     rememberMe: boolean
     captcha?: string
 }
+// export type MeParamsType = {
+//     id: number
+//     email: string
+//     rememberMe: boolean
+// }
 
 // types todolistsAPI
 export type TodolistType = {
