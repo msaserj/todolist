@@ -3,7 +3,7 @@ import {TodolistActionsType, todolistReducer} from "../features/TodolistsList/to
 import {TaskActionsType, taskReducer} from "../features/TodolistsList/task-reducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {appReducer} from "./app-reducer";
-import {LoginActionsType, authReducer} from "../features/Login/auth-reducer";
+import {authReducer} from "../features/Login/auth-reducer";
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния
