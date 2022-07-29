@@ -8,7 +8,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "./store";
 import {initializaAppTC, RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
-import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom";
+import {Route, Routes, Navigate} from "react-router-dom";
 import {Login} from "../features/Login/Login";
 import {useAppDispatch} from "./hooks";
 import {logOutTC} from "../features/Login/auth-reducer";
@@ -40,7 +40,6 @@ function App({demo = false}: PropsType) {
     }
 
     return (
-        <BrowserRouter>
             <div className="App">
                 <ErrorSnackbar/>
                 <AppBar position="static">
@@ -54,7 +53,6 @@ function App({demo = false}: PropsType) {
                             <MenuIcon/>
                         </IconButton>
                         <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-                            News
                         </Typography>
                         {isLoggedIn && <Button onClick={logOutHandler} color="inherit">Log out</Button>}
                     </Toolbar>
@@ -63,15 +61,15 @@ function App({demo = false}: PropsType) {
                 </AppBar>
                 <Container fixed>
                     <Routes>
-                        <Route path="/" element={<TodolistsList demo={demo}/>}/>
-                        <Route path="login" element={<Login/>}/>
+                        <Route path="/it-incubator-todolist" element={<TodolistsList demo={demo}/>}/>
+                        <Route path="/login" element={<Login/>}/>
                         <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>}/>
                         <Route path="*" element={<Navigate to="/404"/>}/>
                     </Routes>
                     {/*universal component*/}
                 </Container>
             </div>
-        </BrowserRouter>
+
 
 
     );
