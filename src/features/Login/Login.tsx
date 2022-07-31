@@ -52,15 +52,14 @@ export const Login = () => {
         return <Navigate to={"/it-incubator-todolist"}/>
     }
 
-
     return <Grid container justifyContent={'center'}>
         <Grid item justifyContent={'center'}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
                     <FormLabel>
                         <p>To log in get registered
-                            <a href={'https://social-network.samuraijs.com/'}
-                               target={'_blank'}> here
+                            <a href='https://social-network.samuraijs.com/'
+                               target={'_blank'} rel="noreferrer"> here
                             </a>
                         </p>
                         <p>or use common test account credentials:</p>
@@ -94,7 +93,6 @@ export const Login = () => {
                     </FormGroup>
                 </FormControl>
             </form>
-
         </Grid>
     </Grid>
 }

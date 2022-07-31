@@ -13,7 +13,6 @@ import {Login} from "../features/Login/Login";
 import {useAppDispatch} from "./hooks";
 import {logOutTC} from "../features/Login/auth-reducer";
 
-
 type PropsType = {
     demo?: boolean
 }
@@ -70,8 +69,6 @@ function App({demo = false}: PropsType) {
                 </Container>
 
             </div>
-
-
 
     );
 }
