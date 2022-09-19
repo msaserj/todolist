@@ -25,13 +25,13 @@ export const setIsLoggedInAC = slice.actions.setIsLoggedInAC;
 
 // sanki
 export const loginTC = (params: LoginParamsType) => (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC('loading'))
+    dispatch(setAppStatusAC({status: 'loading'}))
     authAPI.login(params)
         .then((res) => {
             if (res.data.resultCode === 0){
                 dispatch(setIsLoggedInAC({value: true}))
                 alert("login!")
-                dispatch(setAppStatusAC('succeeded'))
+                dispatch(setAppStatusAC({status: 'succeeded'}))
             } else {
                 handleServerAppError(res.data, dispatch);
             }
@@ -41,12 +41,12 @@ export const loginTC = (params: LoginParamsType) => (dispatch: Dispatch) => {
         })
 }
 export const logOutTC = () => (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC('loading'))
+    dispatch(setAppStatusAC({status: 'loading'}))
     authAPI.logOut()
         .then((res) => {
             if (res.data.resultCode === 0){
                 dispatch(setIsLoggedInAC({value: false}))
-                dispatch(setAppStatusAC('succeeded'))
+                dispatch(setAppStatusAC({status: 'succeeded'}))
             } else {
                 handleServerAppError(res.data, dispatch);
             }
