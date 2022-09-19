@@ -1,9 +1,8 @@
 //app-reducer.tsx
 
-
 import {Dispatch} from "redux";
 import {authAPI} from "../api/todolists-api";
-import {LoginActionsType, setIsLoggedInAC} from "../features/Login/auth-reducer";
+import {setIsLoggedInAC} from "../features/Login/auth-reducer";
 
 
 export type InitialStateType = {
@@ -40,10 +39,10 @@ export const setAppInitializedAC = (value: boolean) => ({type: 'APP/SET-IS-INITI
 
 //export const addTodolistTC = (title: string): AppThunk => (dispatch: ThunkDispatchType)
 
-export const initializaAppTC = () => (dispatch: ThunkDispatchType) => {
+export const initializaAppTC = () => (dispatch: Dispatch) => {
     authAPI.me().then( res => {
         if (res.data.resultCode === 0) {
-            dispatch(setIsLoggedInAC(true))
+            dispatch(setIsLoggedInAC({value: true}))
         } else {
         }
         dispatch(setAppInitializedAC(true))
@@ -56,4 +55,3 @@ export type SetAppInitializedActionType = ReturnType<typeof setAppInitializedAC>
 
 type AuthActionsType =  SetErrorActionType | SetStatusActionType | SetAppInitializedActionType
 
-type ThunkDispatchType = Dispatch<AuthActionsType | LoginActionsType>
