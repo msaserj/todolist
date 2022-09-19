@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect} from 'react';
-import './App.css';
 import {AppBar, Button, CircularProgress, Container, IconButton, LinearProgress, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
@@ -26,10 +25,10 @@ function App({demo = false}: PropsType) {
 
     useEffect(()=> {
         dispatch(initializaAppTC())
-    }, [])
+    }, [dispatch])
     const logOutHandler = useCallback(() => {
         dispatch(logOutTC())
-    },[])
+    },[dispatch])
 
 
     if (!initialized) {
