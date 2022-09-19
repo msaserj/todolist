@@ -1,12 +1,12 @@
 import React from "react";
 import App from "./App";
-import {ReduxStoreProviderDecorator} from "../stories/decorators/ReduxStoreProviderDecorator";
+import {BrowserRouterDecorator, ReduxStoreProviderDecorator} from "../stories/decorators/ReduxStoreProviderDecorator";
 
 
 export default {
     title: 'App Component',
     component: App,
-    decorators: [ReduxStoreProviderDecorator]
+    decorators: [ReduxStoreProviderDecorator, BrowserRouterDecorator]
 }
 
 // const changeCallBack = action("Value changed")

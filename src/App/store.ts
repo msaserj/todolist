@@ -9,7 +9,7 @@ import {configureStore} from "@reduxjs/toolkit";
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния // слайсы
-const rootRedcer = combineReducers({
+const rootReducer = combineReducers({
     todolists: todolistReducer,
     tasks: taskReducer,
     app: appReducer,
@@ -17,15 +17,19 @@ const rootRedcer = combineReducers({
 })
 
 // определить автоматически тип всего объекта состояния
-// export const store = createStore(rootRedcer, applyMiddleware(thunk));
+// export const store = createStore(rootReducer, applyMiddleware(thunk));
 export const store = configureStore({
-    reducer: rootRedcer,
+    reducer: rootReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware)
 });
+
+export type RootReducerType = typeof rootReducer
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, any>
+
+export type AppRootStateType = ReturnType<RootReducerType>
 
 // @ts-ignore
 window.store = store
