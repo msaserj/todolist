@@ -42,7 +42,6 @@ export const todolistsAPI = {
     }
 }
 
-
 export const authAPI = {
     // auth Endpoints
     login(params: LoginParamsType) {
