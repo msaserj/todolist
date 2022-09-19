@@ -34,7 +34,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
             return;
         }
         dispatch(fetchTodolistsTC())
-    }, [])
+    }, [dispatch])
 
     const removeTask = useCallback((todolistID: string, id: string) => {
         dispatch(removeTaskTC(todolistID, id))
@@ -83,7 +83,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
 
                     return (
                         <Grid item xs={12} md={6} xl={4}>
-                            <Paper style={{padding: "10px"}} elevation={3}>
+                            <Paper style={{padding: "10px", opacity: "80%"}} elevation={3}>
                                 <Todolist
                                     todolist={tdl}
                                     key={tdl.id}

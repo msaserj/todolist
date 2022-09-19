@@ -40,7 +40,7 @@ function App({demo = false}: PropsType) {
     return (
             <div className="App">
                 <ErrorSnackbar/>
-                <AppBar position="static">
+                <AppBar style={{background: "black", opacity: "50%"}} position="static">
                     <Toolbar>
                         <IconButton
                             size="large"
