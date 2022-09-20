@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: url("../src/assets/img/background-todos.jpg") no-repeat;
-  background-size: 100%;
+  background-size: 120%;
 }
 
 code {
