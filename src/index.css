@@ -5,8 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url("../src/assets/img/background-todos.jpg") no-repeat;
-  background-size: 120%;
+  background-image: url("../src/assets/img/background-todos.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 code {

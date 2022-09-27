@@ -42,34 +42,33 @@ function App({demo = false}: PropsType) {
     return (
             <div className="App">
                 <ErrorSnackbar/>
-                <AppBar style={{background: "black", opacity: "50%"}} position="static">
-                    <Toolbar>
-                        <IconButton
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="menu"
-                            sx={{mr: 2}}>
-                            <MenuIcon/>
-                        </IconButton>
-                        <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-                        </Typography>
-                        {isLoggedIn && <Button onClick={logOutHandler} color="inherit">Log out</Button>}
-                    </Toolbar>
+                    <AppBar style={{background: "black", opacity: "50%", position: "sticky"}}>
+                        <Toolbar>
+                            <IconButton
+                                size="large"
+                                edge="start"
+                                color="inherit"
+                                aria-label="menu"
+                                sx={{mr: 2}}>
+                                <MenuIcon/>
+                            </IconButton>
+                            <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                            </Typography>
+                            {isLoggedIn && <Button onClick={logOutHandler} color="inherit">Log out</Button>}
+                        </Toolbar>
 
-                    {status === 'loading' && <LinearProgress/>}
-                </AppBar>
-                <Container fixed>
-                    <Routes>
-                        <Route path="/it-inc-todolist" element={<TodolistsList demo={demo}/>}/>
-                        <Route path="/login" element={<Login/>}/>
-                        <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>}/>
-                        <Route path="*" element={<Navigate to="/404"/>}/>
-                    </Routes>
-                    {/*universal component*/}
-                </Container>
-
-            </div>
+                        {status === 'loading' && <LinearProgress/>}
+                    </AppBar>
+                    <Container fixed>
+                        <Routes>
+                            <Route path="/it-inc-todolist" element={<TodolistsList demo={demo}/>}/>
+                            <Route path="/login" element={<Login/>}/>
+                            <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>}/>
+                            <Route path="*" element={<Navigate to="/404"/>}/>
+                        </Routes>
+                        {/*universal component*/}
+                    </Container>
+                </div>
 
     );
 }
