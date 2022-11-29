@@ -22,7 +22,7 @@ const slice = createSlice({
             }
         },
         addTaskAC(state, action: PayloadAction<TaskType>) {
-            state[action.payload.todoListId].unshift(action.payload);
+            state[action.payload.todoListId].push(action.payload);
         },
         updateTaskAC(state, action: PayloadAction<{ todolistId: string, taskId: string, model: UpdateDomainTaskModelType }>) {
             const tasks = state[action.payload.todolistId];
