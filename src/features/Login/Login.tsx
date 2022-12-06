@@ -49,7 +49,7 @@ export const Login = () => {
     })
 
     if (isLoggedIn) {
-        return <Navigate to={"/it-inc-todolist"}/>
+        return <Navigate to={"/inc-todolist"}/>
     }
 
     return <Grid container justifyContent={'center'}>
