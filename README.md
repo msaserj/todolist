@@ -1,4 +1,4 @@
-<h1 align="center">Social Network</h1>
+<h1 align="center">Todo list</h1>
 <h2 align="center">
 
 </h2>
