@@ -1,44 +1,75 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">Social Network</h1>
+<h2 align="center">
 
-## Available Scripts
+</h2>
 
-In the project directory, you can run:
+<p align="center">
 
-### `yarn start`
+[//]: # (<img src="https://img.shields.io/npm/dy/msaserj">)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<img src="https://img.shields.io/badge/made%20by-msaserj-blue.svg" >
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+<img src="https://img.shields.io/github/stars/msaserj/inc-todolist.svg?style=flat">
 
-### `yarn test`
+<img src="https://img.shields.io/badge/React-18.0.0-green.svg">
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<img src="https://img.shields.io/github/languages/count/msaserj/inc-todolist">
 
-### `yarn build`
+<img src="https://img.shields.io/github/languages/top/msaserj/inc-todolist.svg">
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" >
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+</p>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+<h2 align="center"><a  href="https://msaserj.github.io/inc-todolist">Live Demo</a></h2>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Description
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**This is a tutorial project - todolist. The interaction takes place with a real backend.**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<p align="center"><img src="./src/assets/img/screen.png" width="80%"></p>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## About the project.
 
-## Learn More
+What is implemented here?
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Authorization.
+2. CRUD operations with lists and todos.
+3. Material UI layout.
+4. Error processing.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+You can also login or register use socialnetwork project form 
+[here](https://msaserj.github.io/inc-socialnetwork)
+
+## Technologies
+
+**React**,
+**Redux**,
+**Redux-toolkit**,
+**Material-UI**,
+**TS**,
+**SCSS**,
+**Storybook**
+
+## Project setup
+
+```
+npm install
+npm run serve
+```
+#### use yarn
+```
+yarn
+yarn start
+```
+
+## Future scope
+
+- Add registration flow.
+- Rewrite all reducers to redux-toolkit,
+- May be add drug and drop.
+
+## My Home Page
+
+[Sergei Minko aka msaserj](https://msaserj.ru)
