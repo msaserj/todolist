@@ -107,8 +107,7 @@ export type UpdateDomainTaskModelType = {
     startDate?: string
     deadline?: string
 }
-export const updateTaskTC = (todolistId: string, taskId: string, domainModel: UpdateDomainTaskModelType): AppThunk =>
-    (dispatch: Dispatch, getState: () => RootState) => {
+export const updateTaskTC = (todolistId: string, taskId: string, domainModel: UpdateDomainTaskModelType): AppThunk => (dispatch: Dispatch, getState: () => RootState) => {
         const state = getState();
         const task = state.tasks[todolistId].find(t => t.id === taskId);
         if (!task) {
