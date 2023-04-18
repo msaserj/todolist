@@ -5,7 +5,7 @@
 
 <p align="center">
 
-[//]: # (<img src="https://img.shields.io/npm/dy/msaserj">)
+[//]: # '<img src="https://img.shields.io/npm/dy/msaserj">'
 
 <img src="https://img.shields.io/badge/made%20by-msaserj-blue.svg" >
 
@@ -20,7 +20,6 @@
 <img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" >
 
 </p>
-
 
 <h2 align="center"><a  href="https://msaserj.github.io/inc-todolist">Live Demo</a></h2>
 
@@ -39,7 +38,7 @@ What is implemented here?
 3. Material UI layout.
 4. Error processing.
 
-You can also login or register use socialnetwork project form 
+You can also login or register use socialnetwork project form
 [here](https://msaserj.github.io/inc-socialnetwork)
 
 ## Technologies
@@ -58,7 +57,9 @@ You can also login or register use socialnetwork project form
 npm install
 npm run serve
 ```
+
 #### use yarn
+
 ```
 yarn
 yarn start
