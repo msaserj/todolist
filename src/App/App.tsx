@@ -11,7 +11,7 @@ import Toolbar from "@mui/material/Toolbar";
 import { TodolistsList } from "../features/TodolistsList/TodolistsList";
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
-import { initializaAppTC, RequestStatusType } from "./app-reducer";
+import { initializeAppTC, RequestStatusType } from "./app-reducer";
 import { ErrorSnackbar } from "../components/ErrorSnackbar/ErrorSnackbar";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Login } from "../features/Login/Login";
@@ -37,7 +37,7 @@ function App({ demo = false }: PropsType) {
 
   useEffect(() => {
     if (!demo) {
-      dispatch(initializaAppTC());
+      dispatch(initializeAppTC());
     }
   }, [dispatch]);
   const logOutHandler = useCallback(() => {

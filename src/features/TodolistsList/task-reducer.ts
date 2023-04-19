@@ -17,6 +17,7 @@ import {
   handleServerAppError,
 } from "../../utils/error-utils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {clearState} from "../../common/actions/common.actions";
 
 const initialState: TasksStateType = {};
 
@@ -71,6 +72,9 @@ const slice = createSlice({
         state[tl.id] = [];
       });
     });
+    builder.addCase(clearState, () => {
+      return {}
+    })
   },
 });
 

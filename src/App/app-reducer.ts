@@ -44,7 +44,7 @@ export const { setAppErrorAC, setAppInitializedAC, setAppStatusAC } =
   slice.actions;
 
 //sanki
-export const initializaAppTC = () => (dispatch: Dispatch) => {
+export const initializeAppTC = () => (dispatch: Dispatch) => {
   authAPI.me().then((res) => {
     if (res.data.resultCode === 0) {
       dispatch(setIsLoggedInAC({ value: true }));
