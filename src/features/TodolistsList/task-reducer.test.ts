@@ -1,8 +1,6 @@
 import {
-    addTaskAC,
-    updateTaskAC,
     taskReducer,
-    TasksStateType, fetchTasksTC, removeTaskTC,
+    TasksStateType, fetchTasksTC, removeTaskTC, addTaskTC, updateTaskTC,
 } from "./task-reducer";
 import {
     addTodolistAC,
@@ -104,7 +102,7 @@ test("correct task should be deleted from correct array", () => {
 });
 
 test("correct task should be added to correct array", () => {
-    const action = addTaskAC({
+    let task = {
         todoListId: "todolistId2",
         title: "salt",
         status: TaskStatuses.New,
@@ -115,7 +113,9 @@ test("correct task should be added to correct array", () => {
         priority: 0,
         startDate: "",
         id: "1"
-    });
+    }
+    const param = {todolistId: task.todoListId, title: task.title}
+    const action = addTaskTC.fulfilled(task, 'requestId', param);
 
     const endState = taskReducer(startState, action);
 
@@ -127,11 +127,8 @@ test("correct task should be added to correct array", () => {
 });
 
 test("status of specified task should be changed", () => {
-    const action = updateTaskAC({
-        todolistId: "todolistId2",
-        taskId: "2",
-        model: {status: TaskStatuses.New},
-    });
+    const updateModel = {todolistId: "todolistId2", taskId: "2", domainModel: {status: TaskStatuses.New}}
+    const action = updateTaskTC.fulfilled(updateModel, 'requestId', updateModel);
     const endState = taskReducer(startState, action);
 
     expect(endState["todolistId2"][1].status).toBe(TaskStatuses.New);
@@ -139,11 +136,10 @@ test("status of specified task should be changed", () => {
 });
 
 test("title of specified task should be changed", () => {
-    const action = updateTaskAC({
-        todolistId: "todolistId2",
-        taskId: "2",
-        model: {title: "MilkyWay"},
-    });
+    const updateModel = {todolistId: "todolistId2", taskId: "2", domainModel: {title: "MilkyWay"}}
+
+    const action = updateTaskTC.fulfilled(updateModel, 'requestId', updateModel);
+
     const endState = taskReducer(startState, action);
 
     expect(endState["todolistId2"][1].title).toBe("MilkyWay");
