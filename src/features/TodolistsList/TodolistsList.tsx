@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import {
   addTodolistTC,
-  changeTodolistFilterAC,
+  changeTodolistFilterAC, changeTodolistTitleTC,
   fetchTodolistsTC,
   FilterValueType,
   removeTodolistTC,
@@ -10,7 +10,6 @@ import {
 } from "./todolist-reducer";
 import {
   addTaskTC,
-  changeTodolistTitleTC,
   removeTaskTC,
   TasksStateType,
   updateTaskTC,
@@ -84,7 +83,7 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
   );
   const changeTodolistTitle = useCallback(
     (todolistId: string, title: string) => {
-      dispatch(changeTodolistTitleTC(todolistId, title));
+      dispatch(changeTodolistTitleTC({todolistId, title}));
     },
     [dispatch]
   );
