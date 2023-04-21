@@ -39,3 +39,5 @@ export type AppRootStateType = ReturnType<RootReducerType>;
 
 // @ts-ignore
 window.store = store;
+
+export type AppDispatchType = typeof store.dispatch

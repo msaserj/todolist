@@ -7,12 +7,18 @@ import FormGroup from "@mui/material/FormGroup";
 import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useFormik } from "formik";
+import {FormikHelpers, useFormik} from "formik";
 import { loginTC } from "./auth-reducer";
 import { useAppDispatch } from "../../App/hooks";
 import { RootState } from "../../App/store";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+
+type FormErrorType = {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+};
 
 export const Login = () => {
   type FormikErrorType = {
@@ -20,6 +26,7 @@ export const Login = () => {
     password?: string;
     rememberMe?: boolean;
   };
+
   const dispatch = useAppDispatch();
   const isLoggedIn = useSelector<RootState, boolean>(
     (state) => state.login.isLoggedIn
@@ -29,11 +36,12 @@ export const Login = () => {
       const errors: FormikErrorType = {};
       if (!values.email) {
         errors.email = "Required";
-      } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-      ) {
-        errors.email = "Invalid email address";
       }
+      // else if (
+      //   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+      // ) {
+      //   errors.email = "Invalid email address";
+      // }
       if (!values.password) {
         errors.password = "Required";
       } else if (values.password.length < 3) {
@@ -46,8 +54,16 @@ export const Login = () => {
       password: "",
       rememberMe: false,
     },
-    onSubmit: (values) => {
-      dispatch(loginTC(values));
+    onSubmit: async (values, FormikHelpers: FormikHelpers<FormErrorType>) => {
+      const action = await dispatch(loginTC(values));
+      if (loginTC.rejected.match(action)) {
+        if (action.payload?.fieldsErrors?.length) {
+          const error = action.payload.fieldsErrors[0]
+          FormikHelpers.setFieldError(error.field, error.error)
+        }
+
+      }
+
     },
   });
 
