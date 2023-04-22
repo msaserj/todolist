@@ -8,7 +8,7 @@ import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import {FormikHelpers, useFormik} from "formik";
-import { loginTC } from "./auth-reducer";
+import { asyncActions } from "./auth-reducer";
 import { useAppDispatch } from "../../App/hooks";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
@@ -53,8 +53,8 @@ export const Login = () => {
       rememberMe: false,
     },
     onSubmit: async (values, FormikHelpers: FormikHelpers<FormErrorType>) => {
-      const action = await dispatch(loginTC(values));
-      if (loginTC.rejected.match(action)) {
+      const action = await dispatch(asyncActions.loginTC(values));
+      if (asyncActions.loginTC.rejected.match(action)) {
         if (action.payload?.fieldsErrors?.length) {
           const error = action.payload.fieldsErrors[0]
           FormikHelpers.setFieldError(error.field, error.error)

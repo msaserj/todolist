@@ -8,16 +8,16 @@ import {
   Typography,
 } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
-import { TodolistsList } from "../features/TodolistsList/TodolistsList";
+import { TodolistsList } from "../features/TodolistsList";
 import { useSelector } from "react-redux";
-import { initializeAppTC } from "./app-reducer";
+import { asyncActions } from "./app-reducer";
 import { ErrorSnackbar } from "../components/ErrorSnackbar/ErrorSnackbar";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Login } from "../features/Auth/Login";
+import { Login } from "../features/Auth";
 import { useAppDispatch } from "./hooks";
 
 import {selectIsInitialized, selectStatus} from "./selectors";
-import {logOutTC} from "../features/Auth/auth-reducer";
+import {asyncActions as authAsyncActions} from "../features/Auth/auth-reducer";
 import {authSelectors} from "../features/Auth";
 
 type PropsType = {
@@ -34,11 +34,11 @@ function App({ demo = false }: PropsType) {
 
   useEffect(() => {
     if (!demo) {
-      dispatch(initializeAppTC());
+      dispatch(asyncActions.initializeApp());
     }
   }, [dispatch]);
   const logOutHandler = useCallback(() => {
-    dispatch(logOutTC());
+    dispatch(authAsyncActions.logOutTC());
   }, [dispatch]);
 
   if (!initialized) {

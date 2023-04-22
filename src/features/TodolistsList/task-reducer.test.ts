@@ -3,8 +3,8 @@ import {
     TasksStateType,
 } from "./task-reducer";
 import {TaskPriorities, TaskStatuses} from "../../api/todolists-api";
-import {addTask, fetchTasks, removeTask, updateTask} from "./tasks-actions";
-import {addTodoList, fetchTodolists, removeTodolist} from "./todolists-actions";
+import {addTask, fetchTasks, removeTask, updateTask} from "./task-reducer";
+import {asyncActions as asyncTodolistsActions} from "./todolist-reducer";
 
 let startState: TasksStateType;
 beforeEach(() => {
@@ -152,7 +152,7 @@ test("new property with new array should be added when new todolist is added", (
             addedData: "",
         },
     }
-    const action = addTodoList.fulfilled(payload, 'requestId', payload.todolist.title);
+    const action = asyncTodolistsActions.addTodoList.fulfilled(payload, 'requestId', payload.todolist.title);
     const endState = taskReducer(startState, action);
 
     const keys = Object.keys(endState);
@@ -165,7 +165,7 @@ test("new property with new array should be added when new todolist is added", (
 });
 
 test("property with todolistId should be deleted", () => {
-    const action = removeTodolist.fulfilled({todolistId: "todolistId2"}, 'requestId', 'todolistId2');
+    const action = asyncTodolistsActions.removeTodolist.fulfilled({todolistId: "todolistId2"}, 'requestId', 'todolistId2');
     const endState = taskReducer(startState, action);
     const keys = Object.keys(endState);
 
@@ -174,7 +174,7 @@ test("property with todolistId should be deleted", () => {
 });
 test("empty arrays should be added when we set todolists", () => {
 
-    const action = fetchTodolists.fulfilled({
+    const action = asyncTodolistsActions.fetchTodolists.fulfilled({
         todolists: [
             {id: "1", title: "What to learn", order: 0, addedData: ""},
             {id: "2", title: "What to buy", order: 0, addedData: ""},
