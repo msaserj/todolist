@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { useAppSelector } from "../../App/hooks";
+import React, {useCallback, useEffect} from "react";
+import {useAppDispatch, useAppSelector} from "../../App/hooks";
 import { TodolistDomainType } from "./todolist-reducer";
 import {TasksStateType,} from "./task-reducer";
-import { Grid, Paper } from "@mui/material";
-import { AddItemForm } from "../../components/AddItemForm/AddItemForm";
+import { Grid } from "@mui/material";
+import {AddItemForm, AddItemFormSubmitHelperType} from "../../components/AddItemForm/AddItemForm";
 import { Todolist } from "./Todolist/Todolist";
 import { Navigate } from "react-router-dom";
 import {selectIsLoggedIn} from "../Auth/selectors";
@@ -21,7 +21,28 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
   const tasks = useAppSelector<TasksStateType>((state) => state.tasks);
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
-  const {fetchTodolists, addTodoList} = useActions(todoListsActions)
+  const dispatch = useAppDispatch()
+
+  const {fetchTodolists} = useActions(todoListsActions)
+
+  const addTodoListCB = useCallback(async (title: string, helper: AddItemFormSubmitHelperType) => {
+
+
+      let thunk = todoListsActions.addTodoList( title);
+      const resultAction = await dispatch(thunk);
+      if (todoListsActions.addTodoList.rejected.match(resultAction)) {
+          if (resultAction.payload?.errors?.length) {
+              const error = resultAction.payload?.errors[0]
+              helper.setError(error)
+              throw new Error(error)
+          } else {
+              helper.setError("Some error occurred")
+          }
+      } else {
+          helper.setTitle('')
+      }
+
+      }, []);
 
 
   useEffect(() => {
@@ -39,7 +60,7 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
   return (
     <>
       <Grid style={{ padding: "20px" }} container>
-        <AddItemForm addItem={addTodoList} />
+        <AddItemForm addItem={addTodoListCB} />
       </Grid>
       <Grid container spacing={3}>
         {todolists.map((tdl) => {
@@ -47,14 +68,14 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
 
           return (
             <Grid item xs={12} md={6} xl={4}>
-              <Paper style={{ padding: "10px", opacity: "80%" }} elevation={3}>
+              <div style={{ opacity: "80%", width: '300px' }}>
                 <Todolist
                   todolist={tdl}
                   key={tdl.id}
                   tasks={tasksForTodoList}
                   demo={demo}
                 />
-              </Paper>
+              </div>
             </Grid>
           );
         })}

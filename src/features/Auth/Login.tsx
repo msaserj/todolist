@@ -59,9 +59,7 @@ export const Login = () => {
           const error = action.payload.fieldsErrors[0]
           FormikHelpers.setFieldError(error.field, error.error)
         }
-
       }
-
     },
   });
 

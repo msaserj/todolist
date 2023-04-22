@@ -8,6 +8,7 @@ import { authReducer } from "../features/Auth/auth-reducer";
 import { configureStore } from "@reduxjs/toolkit";
 import {useAppDispatch} from "./hooks";
 import {useMemo} from "react";
+import {FieldErrorType} from "../api/todolists-api";
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния // слайсы
@@ -43,6 +44,8 @@ export type AppRootStateType = ReturnType<RootReducerType>;
 window.store = store;
 
 export type AppDispatchType = typeof store.dispatch
+
+export type ThunkErrorType = {rejectValue: {errors: Array<string>, fieldsErrors?: Array<FieldErrorType>}}
 
 export function useActions<T extends ActionCreatorsMapObject<any>>(actions: T) {
   const dispatch = useAppDispatch()

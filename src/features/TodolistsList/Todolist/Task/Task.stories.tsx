@@ -1,15 +1,13 @@
 import React from "react";
 import { Task } from "./Task";
 import { TaskPriorities, TaskStatuses } from "../../../../api/todolists-api";
-import {
-    BrowserRouterDecorator,
-    ReduxStoreProviderDecorator
+import {ReduxStoreProviderDecorator
 } from "../../../../stories/decorators/ReduxStoreProviderDecorator";
 
 export default {
   title: "Task Component",
   component: Task,
-    decorators: [ReduxStoreProviderDecorator, BrowserRouterDecorator]
+    decorators: [ReduxStoreProviderDecorator]
 };
 
 

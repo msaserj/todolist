@@ -1,31 +1,28 @@
 import {setAppStatusAC} from "../../App/app-reducer";
 
-import {authAPI, FieldErrorType, LoginParamsType} from "../../api/todolists-api";
+import {authAPI, LoginParamsType} from "../../api/todolists-api";
 import {
-    handleNetworkAppError,
-    handleServerAppError,
+    handleServerNetworkError,
+    handleServerAppError, handleAsyncServerNetworkError, handleAsyncServerAppError,
 } from "../../utils/error-utils";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {clearState} from "../../common/actions/common.actions";
-import {AxiosError} from "axios";
+import {ThunkErrorType} from "../../App/store";
 
 // sanki
 
-const loginTC = createAsyncThunk<undefined, LoginParamsType, {rejectValue: {errors: Array<string>, fieldsErrors?: Array<FieldErrorType>}}>('auth/login', async (param: LoginParamsType, thunkAPI) => {
-    thunkAPI.dispatch(setAppStatusAC({status: "loading"}));
+const loginTC = createAsyncThunk<undefined, LoginParamsType, ThunkErrorType>('auth/login', async (param: LoginParamsType, {dispatch, rejectWithValue}) => {
+    dispatch(setAppStatusAC({status: "loading"}));
     try {
         const res = await authAPI.auth(param)
         if (res.data.resultCode === 0) {
-            thunkAPI.dispatch(setAppStatusAC({status: "succeeded"}));
+            dispatch(setAppStatusAC({status: "succeeded"}));
             return;
         } else {
-            handleServerAppError(res.data, thunkAPI.dispatch);
-            return  thunkAPI.rejectWithValue({errors: res.data.messages, fieldsErrors: res.data.fieldsErrors});
+            return handleAsyncServerAppError(res.data, dispatch, rejectWithValue)
         }
     } catch (err: any) {
-        const error: AxiosError = err
-        handleNetworkAppError(error, thunkAPI.dispatch);
-        return  thunkAPI.rejectWithValue({errors: [error.message], fieldsErrors: undefined});
+        return handleAsyncServerNetworkError(err, dispatch, rejectWithValue, false)
     }
 })
 
@@ -41,7 +38,7 @@ const logOutTC = createAsyncThunk('auth/logout', async (param, thunkAPI) => {
             return thunkAPI.rejectWithValue({});
         }
     } catch (err: any) {
-        handleNetworkAppError(err, thunkAPI.dispatch);
+        handleServerNetworkError(err, thunkAPI.dispatch);
         return thunkAPI.rejectWithValue({});
     }
 })
