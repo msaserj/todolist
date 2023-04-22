@@ -1,14 +1,19 @@
 import React from "react";
 import { Task } from "./Task";
 import { TaskPriorities, TaskStatuses } from "../../../../api/todolists-api";
+import {
+    BrowserRouterDecorator,
+    ReduxStoreProviderDecorator
+} from "../../../../stories/decorators/ReduxStoreProviderDecorator";
 
 export default {
   title: "Task Component",
   component: Task,
+    decorators: [ReduxStoreProviderDecorator, BrowserRouterDecorator]
 };
 
 
-export const TaskBaseExample = (props: any) => {
+export const TaskBaseExample = () => {
   return (
     <>
       <Task
