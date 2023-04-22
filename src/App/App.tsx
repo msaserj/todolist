@@ -49,8 +49,7 @@ function App({ demo = false }: PropsType) {
           top: "30%",
           textAlign: "center",
           width: "100%",
-        }}
-      >
+        }}>
         <CircularProgress />
       </div>
     );
@@ -60,8 +59,7 @@ function App({ demo = false }: PropsType) {
     <div className="App">
       <ErrorSnackbar />
       <AppBar
-        style={{ background: "black", opacity: "50%", position: "sticky" }}
-      >
+        style={{ background: "black", opacity: "50%", position: "sticky" }}>
         <Toolbar>
           <h1 style={{ fontSize: "50px", margin: "0 50px 0" }}>TodoList</h1>
           <Typography
@@ -75,7 +73,6 @@ function App({ demo = false }: PropsType) {
             </Button>
           )}
         </Toolbar>
-
         {status === "loading" && <LinearProgress />}
       </AppBar>
       <Container fixed>
