@@ -10,29 +10,26 @@ import {
 import Toolbar from "@mui/material/Toolbar";
 import { TodolistsList } from "../features/TodolistsList/TodolistsList";
 import { useSelector } from "react-redux";
-import { RootState } from "./store";
-import { initializeAppTC, RequestStatusType } from "./app-reducer";
+import { initializeAppTC } from "./app-reducer";
 import { ErrorSnackbar } from "../components/ErrorSnackbar/ErrorSnackbar";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Login } from "../features/Login/Login";
+import { Login } from "../features/Auth/Login";
 import { useAppDispatch } from "./hooks";
-import { logOutTC } from "../features/Login/auth-reducer";
+
+import {selectIsInitialized, selectStatus} from "./selectors";
+import {logOutTC} from "../features/Auth/auth-reducer";
+import {authSelectors} from "../features/Auth";
 
 type PropsType = {
   demo?: boolean;
 };
 
+
 function App({ demo = false }: PropsType) {
-  console.log("App is called");
-  const status = useSelector<RootState, RequestStatusType>(
-    (state) => state.app.status
-  );
-  const initialized = useSelector<RootState, boolean>(
-    (state) => state.app.isInitialized
-  );
-  const isLoggedIn = useSelector<RootState, boolean>(
-    (state) => state.login.isLoggedIn
-  );
+
+  const status = useSelector(selectStatus);
+  const initialized = useSelector(selectIsInitialized);
+  const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

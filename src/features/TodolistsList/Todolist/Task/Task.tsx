@@ -12,13 +12,13 @@ type TaskPropsType = {
     status: TaskStatuses
   ) => void;
   changeTaskTitle: (todolistID: string, id: string, newTitle: string) => void;
-  removeTask: (todolistID: string, taskId: string) => void;
+  removeTask: (param: {todolistId: string, taskId: string}) => void;
   task: TaskType;
   todolistId: string;
 };
 export const Task = React.memo((props: TaskPropsType) => {
   const onClickHandler = () => {
-    props.removeTask(props.todolistId, props.task.id);
+    props.removeTask({todolistId: props.todolistId, taskId: props.task.id});
   };
   const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
     let newIsDoneValue = e.currentTarget.checked;

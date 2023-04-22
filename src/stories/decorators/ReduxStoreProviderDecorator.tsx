@@ -7,17 +7,17 @@ import { taskReducer } from "../../features/TodolistsList/task-reducer";
 import { appReducer } from "../../App/app-reducer";
 import { TaskPriorities, TaskStatuses } from "../../api/todolists-api";
 import { RootReducerType, RootState } from "../../App/store";
-import { authReducer } from "../../features/Login/auth-reducer";
+import { authReducer } from "../../features/Auth/auth-reducer";
 import { configureStore } from "@reduxjs/toolkit";
 import thunkMiddleware from "redux-thunk";
 
 import { HashRouter } from "react-router-dom";
 
-const rootRedcer: RootReducerType = combineReducers({
+const rootReducer: RootReducerType = combineReducers({
   todolists: todolistReducer,
   tasks: taskReducer,
   app: appReducer,
-  login: authReducer,
+  auth: authReducer,
 });
 
 //const initialGlobalState = {}
@@ -100,11 +100,11 @@ const initialGlobalState: RootState = {
     status: "succeeded",
     isInitialized: true,
   },
-  login: { isLoggedIn: true },
+  auth: { isLoggedIn: true },
 };
 
 export const storyBookStore = configureStore({
-  reducer: rootRedcer,
+  reducer: rootReducer,
   preloadedState: initialGlobalState,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(thunkMiddleware),

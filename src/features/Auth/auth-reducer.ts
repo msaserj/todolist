@@ -37,7 +37,7 @@ export const setIsLoggedInAC = slice.actions.setIsLoggedInAC;
 export const loginTC = createAsyncThunk<undefined, LoginParamsType, {rejectValue: {errors: Array<string>, fieldsErrors?: Array<FieldErrorType>}}>('auth/login', async (param: LoginParamsType, thunkAPI) => {
     thunkAPI.dispatch(setAppStatusAC({status: "loading"}));
     try {
-        const res = await authAPI.login(param)
+        const res = await authAPI.auth(param)
         if (res.data.resultCode === 0) {
             thunkAPI.dispatch(setAppStatusAC({status: "succeeded"}));
             return;

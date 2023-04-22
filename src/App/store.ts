@@ -1,11 +1,13 @@
-import { combineReducers } from "redux";
+import {ActionCreatorsMapObject, bindActionCreators, combineReducers} from "redux";
 import thunkMiddleware from "redux-thunk";
 import { todolistReducer } from "../features/TodolistsList/todolist-reducer";
 import { taskReducer } from "../features/TodolistsList/task-reducer";
 import { ThunkAction } from "redux-thunk";
 import { appReducer } from "./app-reducer";
-import { authReducer } from "../features/Login/auth-reducer";
+import { authReducer } from "../features/Auth/auth-reducer";
 import { configureStore } from "@reduxjs/toolkit";
+import {useAppDispatch} from "./hooks";
+import {useMemo} from "react";
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния // слайсы
@@ -13,7 +15,7 @@ const rootReducer = combineReducers({
   todolists: todolistReducer,
   tasks: taskReducer,
   app: appReducer,
-  login: authReducer,
+  auth: authReducer,
 });
 
 // определить автоматически тип всего объекта состояния
@@ -41,3 +43,11 @@ export type AppRootStateType = ReturnType<RootReducerType>;
 window.store = store;
 
 export type AppDispatchType = typeof store.dispatch
+
+export function useActions<T extends ActionCreatorsMapObject<any>>(actions: T) {
+  const dispatch = useAppDispatch()
+  const boundActions = useMemo(() => {
+    return bindActionCreators(actions, dispatch)
+  },[])
+  return boundActions
+}

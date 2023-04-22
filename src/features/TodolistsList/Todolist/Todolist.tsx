@@ -6,63 +6,59 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Task } from "./Task/Task";
 import { TaskStatuses, TaskType } from "../../../api/todolists-api";
-import { FilterValueType, TodolistDomainType } from "../todolist-reducer";
+import { TodolistDomainType } from "../todolist-reducer";
 import { useAppDispatch } from "../../../App/hooks";
-import { fetchTasksTC } from "../task-reducer";
+import {fetchTasks} from "../tasks-actions";
+import {useActions} from "../../../App/store";
+import {tasksActions, todoListsActions} from "../index";
 
 type PropsType = {
   todolist: TodolistDomainType;
-  //todolistID: string
-  //id: string
-  //title: string
   tasks: Array<TaskType>;
-  changeFilter: (todolistID: string, value: FilterValueType) => void;
-  addTask: (todolistID: string, title: string) => void;
-  changeTaskStatus: (
-    todolistID: string,
-    taskId: string,
-    status: TaskStatuses
-  ) => void;
-  changeTaskTitle: (todolistID: string, id: string, title: string) => void;
-  removeTask: (todolistID: string, taskId: string) => void;
-  changeTodolistTitle: (id: string, newTitle: string) => void;
-  //filter: FilterValueType
-  removeTodolist: (id: string) => void;
   demo?: boolean;
 };
 
 export const Todolist = React.memo(({ demo = false, ...props }: PropsType) => {
   const dispatch = useAppDispatch();
 
-  console.log("Todolist is called");
-  // всё переехало в отдельную универсальную компоненту
-  const addTask = useCallback(
+  const {changeTodolistFilter, removeTodolist, changeTodolistTitle} = useActions(todoListsActions)
+  const {addTask, updateTask, removeTask} = useActions(tasksActions)
+
+  const addTaskCB = useCallback(
     (title: string) => {
-      props.addTask(props.todolist.id, title);
+      addTask({todolistId: props.todolist.id, title});
     },
     [props.todolist.title, props.todolist.id]
   );
   const removeTodolistHandler = () => {
-    props.removeTodolist(props.todolist.id);
+    removeTodolist(props.todolist.id);
   };
-  const changeTodolistTitle = useCallback(
-    (newTitle: string) => {
-      props.changeTodolistTitle(props.todolist.id, newTitle);
+  const changeTodolistTitleCB = useCallback(
+    (title: string) => {
+      changeTodolistTitle({todolistId: props.todolist.id, title});
     },
-    [props.todolist.id, props.changeTodolistTitle]
+    [props.todolist.id]
   );
 
+  const changeTaskStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
+    updateTask({todolistId: todolistId, taskId: taskId, domainModel: {status}});
+  }, []);
+
+  const changeTaskTitle = useCallback((todolistId: string, id: string, title: string) => {
+    updateTask({todolistId, taskId: id, domainModel: { title }});
+  }, []);
+
   const onAllClickHandler = useCallback(
-    () => props.changeFilter(props.todolist.id, "all"),
-    [props.changeFilter, props.todolist.id]
+    () => changeTodolistFilter({todolistId: props.todolist.id, filter: "all"}),
+    [props.todolist.id]
   );
   const onActiveClickHandler = useCallback(
-    () => props.changeFilter(props.todolist.id, "active"),
-    [props.changeFilter, props.todolist.id]
+    () => changeTodolistFilter({todolistId: props.todolist.id, filter: "active"}),
+    [props.todolist.id]
   );
   const onCompletedClickHandler = useCallback(
-    () => props.changeFilter(props.todolist.id, "completed"),
-    [props.changeFilter, props.todolist.id]
+    () => changeTodolistFilter({todolistId: props.todolist.id, filter: "completed"}),
+    [props.todolist.id]
   );
 
   let tasksForTodoList = props.tasks;
@@ -79,16 +75,15 @@ export const Todolist = React.memo(({ demo = false, ...props }: PropsType) => {
 
   useEffect(() => {
     if (!demo) {
-      dispatch(fetchTasksTC(props.todolist.id));
+      dispatch(fetchTasks(props.todolist.id));
     }
   }, []);
 
   return (
     <div>
-      {/*<button onClick={removeTodolistHandler}>✖</button>*/}
       <EditableSpan
         title={props.todolist.title}
-        onChange={changeTodolistTitle}
+        onChange={changeTodolistTitleCB}
       />
       <IconButton
         onClick={removeTodolistHandler}
@@ -96,18 +91,17 @@ export const Todolist = React.memo(({ demo = false, ...props }: PropsType) => {
       >
         <DeleteIcon />
       </IconButton>
-      {/*universal component*/}
       <AddItemForm
-        addItem={addTask}
+        addItem={addTaskCB}
         disabled={props.todolist.entityStatus === "loading"}
       />
       <ul>
         {tasksForTodoList.map((task) => {
           return (
             <Task
-              changeTaskStatus={props.changeTaskStatus}
-              changeTaskTitle={props.changeTaskTitle}
-              removeTask={props.removeTask}
+              changeTaskStatus={changeTaskStatus}
+              changeTaskTitle={changeTaskTitle}
+              removeTask={removeTask}
               task={task}
               todolistId={props.todolist.id}
               key={task.id}

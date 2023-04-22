@@ -1,71 +1,19 @@
-import {todolistsAPI, TodolistType} from "../../api/todolists-api";
-import {RequestStatusType, setAppStatusAC} from "../../App/app-reducer";
-import {handleNetworkAppError} from "../../utils/error-utils";
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {TodolistType} from "../../api/todolists-api";
+import {RequestStatusType} from "../../App/app-reducer";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {clearState} from "../../common/actions/common.actions";
+import {addTodoList, changeTodolistTitle, fetchTodolists, removeTodolist} from "./todolists-actions";
 
 
 //sanki
 
-export const fetchTodolistsTC = createAsyncThunk('todolists/fetchTodoLists', async (param, {
-    dispatch,
-    rejectWithValue
-}) => {
-    dispatch(setAppStatusAC({status: "loading"}));
-    const res = await todolistsAPI.getTodolists()
-    try {
-        dispatch(setAppStatusAC({status: "succeeded"}));
-        return {todolists: res.data}
-    } catch (err: any) {
-        handleNetworkAppError(err, dispatch);
-        return rejectWithValue({})
-    }
-})
-
-export const removeTodolistTC = createAsyncThunk('todolists/removeTodoList', async (todolistId: string, {
-    dispatch,
-    rejectWithValue
-}) => {
-    dispatch(setAppStatusAC({status: "loading"}));
-    dispatch(changeTodolistEntityStatusAC({todolistId, status: "loading"}));
-    await todolistsAPI.deleteTodolists(todolistId)
-    try {
-        dispatch(setAppStatusAC({status: "succeeded"}));
-        return {todolistId};
-    } catch (err: any) {
-        handleNetworkAppError(err, dispatch);
-        return rejectWithValue({})
-    }
-})
-
-export const addTodolistTC = createAsyncThunk('todolists/addTodoList', async (title: string, {
-    dispatch,
-    rejectWithValue
-}) => {
-    dispatch(setAppStatusAC({status: "loading"}));
-    const res = await todolistsAPI.createTodolists(title)
-    try {
-        dispatch(setAppStatusAC({status: "succeeded"}));
-        return {todolist: res.data.data.item};
-    } catch (err: any) {
-        handleNetworkAppError(err, dispatch);
-        return rejectWithValue({})
-    }
-})
-
-
-export const changeTodolistTitleTC = createAsyncThunk('todolists/changeTodoListTitle', async (param: { todolistId: string, title: string }) => {
-    await todolistsAPI.updateTodolist(param.todolistId, param.title)
-    return {todolistId: param.todolistId, title: param.title}
-})
-
 
 // reducers
-const slice = createSlice({
+export const slice = createSlice({
     name: "todolists",
     initialState: [] as TodolistDomainType[],
     reducers: {
-        changeTodolistFilterAC(
+        changeTodolistFilter(
             state,
             action: PayloadAction<{ todolistId: string; filter: FilterValueType }>
         ) {
@@ -74,7 +22,7 @@ const slice = createSlice({
             );
             state[index].filter = action.payload.filter;
         },
-        changeTodolistEntityStatusAC(
+        changeTodolistEntityStatus(
             state,
             action: PayloadAction<{ todolistId: string; status: RequestStatusType }>
         ) {
@@ -88,10 +36,10 @@ const slice = createSlice({
         builder.addCase(clearState, () => {
             return []
         })
-        builder.addCase(fetchTodolistsTC.fulfilled, (state, action) => {
+        builder.addCase(fetchTodolists.fulfilled, (state, action) => {
             return action.payload.todolists.map((tl) => ({...tl, filter: "all", entityStatus: "idle",}));
         })
-        builder.addCase(removeTodolistTC.fulfilled, (state, action) => {
+        builder.addCase(removeTodolist.fulfilled, (state, action) => {
             const index = state.findIndex(
                 (tdl) => tdl.id === action.payload.todolistId
             );
@@ -99,10 +47,10 @@ const slice = createSlice({
                 state.splice(index, 1);
             }
         })
-        builder.addCase(addTodolistTC.fulfilled, (state, action) => {
+        builder.addCase(addTodoList.fulfilled, (state, action) => {
             state.unshift({...action.payload.todolist, filter: "all", entityStatus: "idle",});
         })
-        builder.addCase(changeTodolistTitleTC.fulfilled, (state, action) => {
+        builder.addCase(changeTodolistTitle.fulfilled, (state, action) => {
             const index = state.findIndex((tdl) => tdl.id === action.payload.todolistId);
             state[index].title = action.payload.title;
         })
@@ -112,8 +60,8 @@ const slice = createSlice({
 export const todolistReducer = slice.reducer;
 // ActionCreators
 export const {
-    changeTodolistFilterAC,
-    changeTodolistEntityStatusAC,
+    changeTodolistFilter,
+    changeTodolistEntityStatus,
 } = slice.actions;
 
 
