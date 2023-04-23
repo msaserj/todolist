@@ -19,6 +19,7 @@ export const AddItemForm = React.memo(
     let [title, setTitle] = useState("");
     let [error, setError] = useState<string | null>(null);
 
+
     const addItemHandler = async () => {
         if (title.trim() !== '') {
                 addItem(title, {setError, setTitle})
@@ -60,8 +61,6 @@ export const AddItemForm = React.memo(
         >
           <AddCircleOutlineIcon />
         </IconButton>
-        {/*<button onClick={addItem}>+</button>*/}
-        {/*{error && <div className="error-message">{error}</div>}*/}
       </Grid>
     );
   }

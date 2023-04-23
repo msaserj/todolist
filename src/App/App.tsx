@@ -10,15 +10,14 @@ import {
 import Toolbar from "@mui/material/Toolbar";
 import { TodolistsList } from "../features/TodolistsList";
 import { useSelector } from "react-redux";
-import { asyncActions } from "./app-reducer";
+import { appActions } from "../features/App";
 import { ErrorSnackbar } from "../components/ErrorSnackbar/ErrorSnackbar";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Login } from "../features/Auth";
-import { useAppDispatch } from "./hooks";
+import { Login, authSelectors, authActions } from "../features/Auth";
+import {selectIsInitialized, selectStatus} from "../features/App/selectors";
+import {useActions} from "../utils/redux-utils";
 
-import {selectIsInitialized, selectStatus} from "./selectors";
-import {asyncActions as authAsyncActions} from "../features/Auth/auth-reducer";
-import {authSelectors} from "../features/Auth";
+
 
 type PropsType = {
   demo?: boolean;
@@ -30,16 +29,18 @@ function App({ demo = false }: PropsType) {
   const status = useSelector(selectStatus);
   const initialized = useSelector(selectIsInitialized);
   const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
-  const dispatch = useAppDispatch();
+
+  const {logOut} = useActions(authActions)
+  const {initializeApp} = useActions(appActions)
 
   useEffect(() => {
     if (!demo) {
-      dispatch(asyncActions.initializeApp());
+      initializeApp();
     }
-  }, [dispatch]);
+  }, []);
   const logOutHandler = useCallback(() => {
-    dispatch(authAsyncActions.logOutTC());
-  }, [dispatch]);
+    logOut();
+  }, []);
 
   if (!initialized) {
     return (
@@ -83,7 +84,6 @@ function App({ demo = false }: PropsType) {
           <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>} />
           <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
-        {/*universal component*/}
       </Container>
     </div>
   );

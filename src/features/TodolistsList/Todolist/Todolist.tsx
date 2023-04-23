@@ -5,12 +5,13 @@ import {Button, Paper} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {Task} from "./Task/Task";
-import {TaskStatuses, TaskType} from "../../../api/todolists-api";
-import {FilterValueType, TodolistDomainType} from "../todolist-reducer";
-import {useAppDispatch} from "../../../App/hooks";
-import {fetchTasks} from "../task-reducer";
-import {useActions} from "../../../App/store";
+
+import {useAppDispatch} from "../../../utils/hooks";
+
 import {tasksActions, todoListsActions} from "../index";
+import {useActions} from "../../../utils/redux-utils";
+import {TaskStatuses, TaskType} from "../../../api/types";
+import {FilterValueType, TodolistDomainType} from "../todolist-reducer";
 
 type PropsType = {
     todolist: TodolistDomainType;
@@ -22,6 +23,7 @@ export const Todolist = React.memo(({demo = false, ...props}: PropsType) => {
     const dispatch = useAppDispatch();
 
     const {changeTodolistFilter, removeTodolist, changeTodolistTitle} = useActions(todoListsActions)
+    const {fetchTasks} = useActions(tasksActions)
 
 
     const addTaskCB = useCallback(async (title: string, helper: AddItemFormSubmitHelperType) => {
@@ -31,7 +33,6 @@ export const Todolist = React.memo(({demo = false, ...props}: PropsType) => {
                 if (resultAction.payload?.errors?.length) {
                     const error = resultAction.payload?.errors[0]
                     helper.setError(error)
-                    throw new Error(error)
                 } else {
                     helper.setError("Some error occurred")
                 }
@@ -74,7 +75,7 @@ export const Todolist = React.memo(({demo = false, ...props}: PropsType) => {
 
     useEffect(() => {
         if (!demo) {
-            dispatch(fetchTasks(props.todolist.id));
+            fetchTasks(props.todolist.id);
         }
     }, []);
 

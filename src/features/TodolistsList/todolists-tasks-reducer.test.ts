@@ -1,6 +1,8 @@
-import {TodolistDomainType, todolistReducer,} from "./todolist-reducer";
-import { taskReducer, TasksStateType } from "./task-reducer";
-import {asyncActions as asyncTodolistsActions} from "./todolist-reducer";
+import {todolistReducer, todoListsActions} from "./";
+import { taskReducer} from "./";
+
+import {TasksStateType} from "./task-reducer";
+import {TodolistDomainType} from "./todolist-reducer";
 
 
 test("ids should be equals", () => {
@@ -14,7 +16,7 @@ test("ids should be equals", () => {
       title: "new title",
     },
   }
-  const action = asyncTodolistsActions.addTodoList.fulfilled(payload, 'requestId', payload.todolist.title);
+  const action = todoListsActions.addTodoList.fulfilled(payload, 'requestId', payload.todolist.title);
 
   const endTasksState = taskReducer(startTasksState, action);
   const endTodolistsState = todolistReducer(startTodolistsState, action);
