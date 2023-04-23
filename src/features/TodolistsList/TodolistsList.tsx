@@ -7,10 +7,8 @@ import {AddItemForm, AddItemFormSubmitHelperType} from "../../components/AddItem
 import { Todolist } from "./Todolist/Todolist";
 import { Navigate } from "react-router-dom";
 import {selectIsLoggedIn} from "../Auth/selectors";
-
 import {todoListsActions} from "./index";
 import {useActions} from "../../utils/redux-utils";
-
 
 type PropsType = {
   demo?: boolean;
@@ -21,13 +19,10 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
   const todolists = useAppSelector<Array<TodolistDomainType>>((state) => state.todolists);
   const tasks = useAppSelector<TasksStateType>((state) => state.tasks);
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
-
   const dispatch = useAppDispatch()
-
   const {fetchTodolists} = useActions(todoListsActions)
 
   const addTodoListCB = useCallback(async (title: string, helper: AddItemFormSubmitHelperType) => {
-
 
       let thunk = todoListsActions.addTodoList( title);
       const resultAction = await dispatch(thunk);
@@ -52,7 +47,6 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
     fetchTodolists();
   }, []);
 
-
   if (!isLoggedIn) {
     return <Navigate to="/login" />;
   }
@@ -65,13 +59,11 @@ export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
       <Grid  container spacing={3}>
         {todolists.map((tdl) => {
           let tasksForTodoList = tasks[tdl.id]; // храним отфильтрованные таски. по умолчанию all
-
           return (
             <Grid item xs={12} md={6} xl={4}  key={tdl.id}>
               <div style={{ opacity: "80%", width: '300px' }}>
                 <Todolist
                   todolist={tdl}
-
                   tasks={tasksForTodoList}
                   demo={demo}
                 />

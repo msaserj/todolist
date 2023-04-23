@@ -5,9 +5,7 @@ import {Button, Paper} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {Task} from "./Task/Task";
-
 import {useAppDispatch} from "../../../utils/hooks";
-
 import {tasksActions, todoListsActions} from "../index";
 import {useActions} from "../../../utils/redux-utils";
 import {TaskStatuses, TaskType} from "../../../api/types";

@@ -1,18 +1,14 @@
 import {authAPI} from "../../api/todolists-api";
-import {authActions} from "../Auth";
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {setAppError, setAppStatus} from "../../common/actions/common.actions";
-
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {setAppError, setAppStatus, setIsLoggedIn} from "../../common/actions/common.actions";
 
 //sanki
-
 const initializeApp = createAsyncThunk('app/initializeApp', async (param, {dispatch}) => {
     const res = await authAPI.me()
     if (res.data.resultCode === 0) {
-        dispatch(authActions.setIsLoggedIn({value: true}));
+        dispatch(setIsLoggedIn({value: true}));
     }
 })
-
 
 // reducers
 export const slice = createSlice({

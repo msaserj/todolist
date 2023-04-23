@@ -11,8 +11,6 @@ import {TodolistType} from "../../api/types";
 
 
 //sanki
-
-
 const fetchTodolists = createAsyncThunk<{ todolists: TodolistType[] }, undefined, ThunkErrorType>('todolists/fetchTodoLists',
     async (param, {dispatch, rejectWithValue}) => {
         dispatch(setAppStatus({status: "loading"}));
