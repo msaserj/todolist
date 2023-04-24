@@ -66,8 +66,7 @@ function App({ demo = false }: PropsType) {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1 }}
-          ></Typography>
+            sx={{ flexGrow: 1 }}/>
           {isLoggedIn && (
             <Button onClick={logOutHandler} color="inherit">
               Log out
