@@ -108,9 +108,7 @@ export const slice = createSlice({
                 const index = state.findIndex(
                     (tdl) => tdl.id === action.payload.todolistId
                 );
-                if (index > -1) {
-                    state.splice(index, 1);
-                }
+                if (index > -1) {state.splice(index, 1)}
             })
             .addCase(addTodoList.fulfilled, (state, action) => {
                 state.unshift({...action.payload.todolist, filter: "all", entityStatus: "idle",});

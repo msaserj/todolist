@@ -42,11 +42,7 @@ export const asyncActions = {login, logOut}
 export const slice = createSlice({
     name: "auth",
     initialState: {isLoggedIn: false},
-    reducers: {
-        // setIsLoggedIn(state, action: PayloadAction<{ value: boolean }>) {
-        //     state.isLoggedIn = action.payload.value;
-        // },
-    },
+    reducers: {},
     extraReducers: builder => {
         builder
             .addCase(login.fulfilled, (state) => {
