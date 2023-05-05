@@ -1,5 +1,12 @@
 import axios from "axios";
-import {LoginParamsType, TasksResponse, TaskType, TodolistType, UpdateTaskModelType, ResponseType} from "./types";
+import {
+  LoginParamsType,
+  TasksResponse,
+  TaskType,
+  TodolistType,
+  UpdateTaskModelType,
+  ResponseType,
+} from "./types";
 
 const settings = {
   withCredentials: true,
@@ -70,4 +77,3 @@ export const authAPI = {
     return instance.delete<ResponseType<{ userId?: number }>>("auth/login");
   },
 };
-

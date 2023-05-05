@@ -14,24 +14,20 @@ import { appActions } from "../features/App";
 import { ErrorSnackbar } from "../components/ErrorSnackbar/ErrorSnackbar";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Login, authSelectors, authActions } from "../features/Auth";
-import {selectIsInitialized, selectStatus} from "../features/App/selectors";
-import {useActions} from "../utils/redux-utils";
-
-
+import { selectIsInitialized, selectStatus } from "../features/App/selectors";
+import { useActions } from "../utils/redux-utils";
 
 type PropsType = {
   demo?: boolean;
 };
 
-
 function App({ demo = false }: PropsType) {
-
   const status = useSelector(selectStatus);
   const initialized = useSelector(selectIsInitialized);
   const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
 
-  const {logOut} = useActions(authActions)
-  const {initializeApp} = useActions(appActions)
+  const { logOut } = useActions(authActions);
+  const { initializeApp } = useActions(appActions);
 
   useEffect(() => {
     if (!demo) {
@@ -50,7 +46,8 @@ function App({ demo = false }: PropsType) {
           top: "30%",
           textAlign: "center",
           width: "100%",
-        }}>
+        }}
+      >
         <CircularProgress />
       </div>
     );
@@ -60,13 +57,11 @@ function App({ demo = false }: PropsType) {
     <div className="App">
       <ErrorSnackbar />
       <AppBar
-        style={{ background: "black", opacity: "50%", position: "sticky" }}>
+        style={{ background: "black", opacity: "50%", position: "sticky" }}
+      >
         <Toolbar>
           <h1 style={{ fontSize: "50px", margin: "0 50px 0" }}>TodoList</h1>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1 }}/>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} />
           {isLoggedIn && (
             <Button onClick={logOutHandler} color="inherit">
               Log out

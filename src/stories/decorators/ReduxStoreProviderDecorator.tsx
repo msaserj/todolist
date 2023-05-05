@@ -5,14 +5,13 @@ import { todolistReducer } from "../../features/TodolistsList";
 import { taskReducer } from "../../features/TodolistsList";
 import { appReducer } from "../../features/App";
 
-
 import { authReducer } from "../../features/Auth";
 import { configureStore } from "@reduxjs/toolkit";
 import thunkMiddleware from "redux-thunk";
 
 import { HashRouter } from "react-router-dom";
-import {RootReducerType, RootState} from "../../utils/types";
-import {TaskPriorities, TaskStatuses} from "../../api/types";
+import { RootReducerType, RootState } from "../../utils/types";
+import { TaskPriorities, TaskStatuses } from "../../api/types";
 
 const rootReducer: RootReducerType = combineReducers({
   todolists: todolistReducer,

@@ -1,17 +1,12 @@
-import * as authSelectors from './selectors';
-import {Login} from './Login'
-import {asyncActions, slice} from './auth-reducer'
+import * as authSelectors from "./selectors";
+import { Login } from "./Login";
+import { asyncActions, slice } from "./auth-reducer";
 
 const authActions = {
-    ...asyncActions,
-    ...slice.actions
-}
+  ...asyncActions,
+  ...slice.actions,
+};
 
-const authReducer = slice.reducer
+const authReducer = slice.reducer;
 
-export {
-    authSelectors,
-    Login,
-    authActions,
-    authReducer
-}
+export { authSelectors, Login, authActions, authReducer };

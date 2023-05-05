@@ -8,8 +8,8 @@ export default {
 };
 
 const asyncCallback = async (...params: any[]) => {
-  action("Button inside form clicked")
-}
+  action("Button inside form clicked");
+};
 
 export const AddItemFormBaseExample = (props: any) => {
   return <AddItemForm addItem={asyncCallback} />;
