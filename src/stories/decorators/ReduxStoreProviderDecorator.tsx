@@ -20,7 +20,6 @@ const rootReducer: RootReducerType = combineReducers({
   auth: authReducer,
 });
 
-//const initialGlobalState = {}
 
 const initialGlobalState: RootState = {
   todolists: [
