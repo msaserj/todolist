@@ -8,8 +8,6 @@ export default {
 export const GetTodolists = () => {
   const [state, setState] = useState<any>(null);
   useEffect(() => {
-    // здесь мы будем делать запрос и ответ закидывать в стейт.
-    // который в виде строки будем отображать в div-ке
     todolistsAPI.getTodolists().then((res) => {
       setState(res.data);
     });
@@ -52,8 +50,7 @@ export const GetTasks = () => {
   const [state, setState] = useState<any>(null);
   const [todolistId, setTodolistId] = useState<any>(null);
   const getTasks = () => {
-    // здесь мы будем делать запрос и ответ закидывать в стейт.
-    // который в виде строки будем отображать в div-ке
+
     todolistsAPI.getTasks(todolistId).then((res) => {
       setState(res.data.items);
     });
