@@ -27,5 +27,3 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 >;
 export type AppRootStateType = ReturnType<RootReducerType>;
 
-// @ts-ignore
-window.store = store;
