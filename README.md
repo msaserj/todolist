@@ -9,19 +9,19 @@
 
 <img src="https://img.shields.io/badge/made%20by-msaserj-blue.svg" >
 
-<img src="https://img.shields.io/github/stars/msaserj/inc-todolist.svg?style=flat">
+<img src="https://img.shields.io/github/stars/msaserj/todolist.svg?style=flat">
 
 <img src="https://img.shields.io/badge/React-18.0.0-green.svg">
 
-<img src="https://img.shields.io/github/languages/count/msaserj/inc-todolist">
+<img src="https://img.shields.io/github/languages/count/msaserj/todolist">
 
-<img src="https://img.shields.io/github/languages/top/msaserj/inc-todolist.svg">
+<img src="https://img.shields.io/github/languages/top/msaserj/todolist.svg">
 
 <img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103" >
 
 </p>
 
-<h2 align="center"><a  href="https://msaserj.github.io/inc-todolist">Live Demo</a></h2>
+<h2 align="center"><a  href="https://msaserj.github.io/todolist">Live Demo</a></h2>
 
 ## Description
 

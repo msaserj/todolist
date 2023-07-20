@@ -8,3 +8,4 @@ export function useActions<T extends ActionCreatorsMapObject<any>>(actions: T) {
     return bindActionCreators(actions, dispatch);
   }, []);
 }
+
